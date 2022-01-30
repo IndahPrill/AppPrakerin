@@ -1,0 +1,14 @@
+Menu Apl
+
+Dosen 
+- Download File (doc/pdf) yang sudah di upload member 
+	- Penilaian dosen terhadap laporan yang di upload mahasiswa
+	- Komentar dosen dari laporan yang diupload mahasiswa
+- Lihat data mahasiswa
+	- Persentase kesiapan laporan PKL
+Mahasiswa
+- Upload File Laporan
+	- Melihat Komentar dari dosen
+- Lihat data dosen pembimbing
+
+
