@@ -1,0 +1,34 @@
+data mahasiswa
+data dosen pembimbing
+lokasi pkl
+Change Password
+Edit Profile
+My Profile
+
+
+Menu data dosen pembimbing
+
+dosen 1
+	Pilih data mahasiswa
+		Didin
+		Dimas
+ 
+dosen 2
+	Pilih data mahasiswa
+		Fadli
+		Indah
+
+
+Buat Tabel
+1. Tabel mahasiswa
+2. Tabel dosen
+3. Tabel lokasiPKL
+4. 
+
+
+Status Bimbingan
+- siap sidang
+- belum siap sidang
+
+tema bimbingan
+pembimbing internal eksternal
