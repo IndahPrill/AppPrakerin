@@ -8,6 +8,7 @@ class Mahasiswa extends CI_Controller
         parent::__construct();
         $this->load->model('Menu_model');
         $this->load->model('Dosen_model');
+        $this->load->model('Koordinator_model');
         is_logged_in();
     }
 
@@ -236,4 +237,19 @@ class Mahasiswa extends CI_Controller
         }
     }
     // End Proses Data Dosen
+
+    public function jurnalLaporan()
+    {
+        $data['title'] = 'Jurnal Laporan';
+        $email = $this->session->userdata('email');
+        $data['user'] = $this->Menu_model->GetUser($email);
+
+        // $data['jrnLaporan'] = $this->Koordinator_model->getJurnalLaporan();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('mahasiswa/jurnalLaporan', $data);
+        $this->load->view('templates/footer');
+    }
 }

@@ -15,7 +15,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>NPM </th>
+                            <th>NPM</th>
+                            <th>Nama Mahasiswa</th>
                             <th>Nama Perusahaan</th>
                             <th>Alamat</th>
                             <th>Pembimbing Eksternal</th>
@@ -24,19 +25,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>12346</td>
-                            <td>CIFO</td>
-                            <td>Jl.Gunung Batu</td>
-                            <td>Robert</td>
-                            <td>088768090</td>
-                            <td>
-                                <a href="" class="badge badge-success" data-toggle="modal" data-target="#editMenuModal">Edit</a>
-                                <a href="" class="badge badge-danger">Delete</a>
-                            </td>
-                        </tr>
-
+                        <?php
+                        $no = 1;
+                        foreach ($lksPkl as $lp) { ?>
+                            <tr>
+                                <td><?= $no; ?></td>
+                                <td><?= $lp['npm_mhs']; ?></td>
+                                <td><?= $lp['nama_mhs']; ?></td>
+                                <td><?= $lp['nama_perusahaan']; ?></td>
+                                <td><?= $lp['alamat_lks']; ?></td>
+                                <td><?= $lp['dsn_eksternal']; ?></td>
+                                <td><?= $lp['no_tlp_dsn_eksternal']; ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editLokasiPKL<?= $lp['id_lks'] ?>"><i class="far fa-edit"></i>&nbsp;Edit</button>
+                                    <a href="<?= base_url('koordinator/deleteLksPkl/') . $lp['id_lks']; ?>" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
+                                </td>
+                            </tr>
+                        <?php
+                            $no++;
+                        } ?>
                     </tbody>
                 </table>
             </div>
@@ -48,3 +55,90 @@
 
 </div>
 <!-- End of Main Content -->
+
+<!-- Modal Add -->
+<div class="modal fade" id="tmbhLokasiPKL" tabindex="-1" role="dialog" aria-labelledby="tmbhLokasiPKLLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tmbhLokasiPKLLabel">Tambah Lokasi PKL</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('koordinator/addLksPkl'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>NPM</label>
+                        <input type="text" class="form-control" name="npm_mhs">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Perusahaan</label>
+                        <input type="text" class="form-control" name="nama_perusahaan">
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <input type="text" class="form-control" name="alamat_lks">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Pembimbing Eksternal</label>
+                        <input type="text" class="form-control" name="dsn_eksternal">
+                    </div>
+                    <div class="form-group">
+                        <label>No Telepon Pembimbing Eksternal</label>
+                        <input type="text" class="form-control" name="no_tlp_dsn_eksternal">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<?php foreach ($lksPkl as $lp) { ?>
+    <div class="modal fade" id="editLokasiPKL<?= $lp['id_lks'] ?>" tabindex="-1" role="dialog" aria-labelledby="editLokasiPKLLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editLokasiPKLLabel">Ubah Lokasi PKL</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('koordinator/editLksPkl'); ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>NPM</label>
+                            <input type="text" class="form-control" name="npm_mhs" value="<?= $lp['npm_mhs'] ?>">
+                            <input type="hidden" name="id_lks" value="<?= $lp['id_lks'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Perusahaan</label>
+                            <input type="text" class="form-control" name="nama_perusahaan" value="<?= $lp['nama_perusahaan'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <input type="text" class="form-control" name="alamat_lks" value="<?= $lp['alamat_lks'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Pembimbing Eksternal</label>
+                            <input type="text" class="form-control" name="dsn_eksternal" value="<?= $lp['dsn_eksternal'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>No Telepon Pembimbing Eksternal</label>
+                            <input type="text" class="form-control" name="no_tlp_dsn_eksternal" value="<?= $lp['no_tlp_dsn_eksternal'] ?>">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php } ?>

@@ -57,6 +57,7 @@
                             a.`menu_id` IN ($menuId)
                             AND a.`is_active` = 1
                             $titleMenu
+                        ORDER BY a.menu_id
                     ";
 
         $subMenu = $this->db->query($querySubMenu)->result_array();
