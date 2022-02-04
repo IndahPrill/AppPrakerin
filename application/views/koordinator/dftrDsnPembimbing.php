@@ -9,6 +9,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tmbhDsnPembimbing"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
             </div>
             <div class="card-body">
+                <?= $this->session->flashdata('message'); ?>
                 <div class="table-responsive">
                     <table class="table table-stripped table-hover datatabel">
                         <thead>
@@ -36,9 +37,9 @@
                                         <?php if ($dp['status_bimbingan'] == '1') { ?>
                                             <span class="badge badge-info">Siap Sidang</span>
                                         <?php } else if ($dp['status_bimbingan'] == '2') { ?>
-                                            <span class="badge badge-info">Belum Siap Sidang</span>
+                                            <span class="badge badge-danger">Belum Siap Sidang</span>
                                         <?php } else { ?>
-                                            <span class="badge badge-info">Proses Bimbingan</span>
+                                            <span class="badge badge-success">Proses Bimbingan</span>
                                         <?php } ?>
                                     </td>
                                     <td>
@@ -72,30 +73,34 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="post">
+                <form action="<?= base_url('koordinator/addDsnPembimbing'); ?>" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>NIK</label>
-                            <input type="text" class="form-control" name="nik_dsn">
+                            <label>Dosen</label>
+                            <select class="form-control" name="nik_dsn">
+                                <option value="">-- PILIH --</option>
+                                <?php
+                                foreach ($data_dsn as $dd) { ?>
+                                    <option value="<?= $dd['nik_dsn'] ?>" data-content="" <?= ($dd['jmlh_dsn'] == "2") ? "disabled" : "" ?>><?= $dd['nik_dsn'] ?> - <?= $dd['nama_dsn'] ?> <?= ($dd['jmlh_dsn'] < "2") ? '' : '(FULL)' ?></option>
+                                <?php
+                                } ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label>Nama Dosen</label>
-                            <input type="text" class="form-control" name="nama_dsn">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label>NPM</label>
-                                <input type="text" class="form-control" name="npm_mhs">
-                            </div>
-                            <div class="form-group col-md-9">
-                                <label>Nama Mahasiswa</label>
-                                <input type="text" class="form-control" name="nama_mhs">
-                            </div>
+                            <label>Mahasiswa</label>
+                            <select class="form-control" name="npm_mhs">
+                                <option value="">-- PILIH --</option>
+                                <?php
+                                foreach ($data_mhs as $dm) { ?>
+                                    <option value="<?= $dm['npm_mhs'] ?>" <?= ($dm['jmlh_mhs'] == "1") ? "disabled" : "" ?>><?= $dm['npm_mhs'] ?> - <?= $dm['nama_mhs'] ?> <?= ($dm['jmlh_mhs'] == "1") ? '(Sudah Ada)' : '(Belum Ada)' ?></option>
+                                <?php
+                                } ?>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                     </div>
                 </form>
             </div>
@@ -116,28 +121,33 @@
                     <form action="<?= base_url('koordinator/editDsnPembimbing'); ?>" method="post">
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>NIK</label>
-                                <input type="text" class="form-control" name="nik_dsn" value="<?= $dp['nik_dsn'] ?>">
-                                <input type="hidden" name="id_bim" value="<?= $dp['id_bim'] ?>">
+                                <label>Dosen</label>
+                                <select class="form-control" name="nik_dsn">
+                                    <option value="">-- PILIH --</option>
+                                    <?php
+                                    foreach ($data_dsn as $dd) {
+                                        if ($dd['status_dsn'] == '1') { ?>
+                                            <option value="<?= $dd['nik_dsn'] ?>" <?= ($dd['nik_dsn'] == $dp['nik_dsn']) ? "selected" : "" ?>><?= $dd['nik_dsn'] ?> - <?= $dd['nama_dsn'] ?></option>
+                                    <?php }
+                                    } ?>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>Nama Dosen</label>
-                                <input type="text" class="form-control" name="nama_dsn" value="<?= $dp['nama_dsn'] ?>">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label>NPM</label>
-                                    <input type="text" class="form-control" name="npm_mhs" value="<?= $dp['npm_mhs'] ?>">
-                                </div>
-                                <div class="form-group col-md-9">
-                                    <label>Nama Mahasiswa</label>
-                                    <input type="text" class="form-control" name="nama_mhs" value="<?= $dp['nama_mhs'] ?>">
-                                </div>
+                                <label>Mahasiswa</label>
+                                <select class="form-control" name="npm_mhs">
+                                    <option value="">-- PILIH --</option>
+                                    <?php
+                                    foreach ($data_mhs as $dm) {
+                                        if ($dm['status_mhs'] == '1') { ?>
+                                            <option value="<?= $dm['npm_mhs'] ?>" <?= ($dm['npm_mhs'] == $dp['npm_mhs']) ? "selected" : "" ?>><?= $dm['npm_mhs'] ?> - <?= $dm['nama_mhs'] ?></option>
+                                    <?php }
+                                    } ?>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                         </div>
                     </form>
                 </div>

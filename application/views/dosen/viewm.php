@@ -13,52 +13,54 @@
             </div>
             <div class="card-body">
                 <?= $this->session->flashdata('message'); ?>
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>NPM</th>
-                            <th>Nama</th>
-                            <th>Program Studi</th>
-                            <th>Kelas</th>
-                            <?php if ($user['role_id'] == 1) { ?>
-                                <th>Status</th>
-                                <th>Action</th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $no = 1;
-                        foreach ($data_mhs as $dm) { ?>
+                <div class="table-responsive">
+                    <table class="table table-stripped table-hover datatabel">
+                        <thead>
                             <tr>
-                                <td><?= $no; ?></td>
-                                <td><?= $dm['npm_mhs']; ?></td>
-                                <td><?= $dm['nama_mhs']; ?></td>
-                                <td><?= $dm['prodi_mhs']; ?></td>
-                                <td><?= $dm['kelas_mhs']; ?></td>
+                                <th>No</th>
+                                <th>NPM</th>
+                                <th>Nama</th>
+                                <th>Program Studi</th>
+                                <th>Kelas</th>
                                 <?php if ($user['role_id'] == 1) { ?>
-                                    <td>
-                                        <?php
-                                        if ($dm['status_mhs'] == 1) {
-                                            echo '<span class="badge badge-info">Aktif</span>';
-                                        } else {
-                                            echo '<span class="badge badge-danger">Non Aktif</span>';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataMhs<?= $dm['id_mhs'] ?>"><i class="far fa-edit"></i>&nbsp;Edit</button>
-                                        <a href="<?= base_url('dosen/deleteMhs/') . $dm['id_mhs']; ?>" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
-                                    </td>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 <?php } ?>
                             </tr>
-                        <?php
-                            $no++;
-                        } ?>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($data_mhs as $dm) { ?>
+                                <tr>
+                                    <td><?= $no; ?></td>
+                                    <td><?= $dm['npm_mhs']; ?></td>
+                                    <td><?= $dm['nama_mhs']; ?></td>
+                                    <td><?= $dm['prodi_mhs']; ?></td>
+                                    <td><?= $dm['kelas_mhs']; ?></td>
+                                    <?php if ($user['role_id'] == 1) { ?>
+                                        <td>
+                                            <?php
+                                            if ($dm['status_mhs'] == 1) {
+                                                echo '<span class="badge badge-info">Aktif</span>';
+                                            } else {
+                                                echo '<span class="badge badge-danger">Non Aktif</span>';
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataMhs<?= $dm['id_mhs'] ?>"><i class="far fa-edit"></i>&nbsp;Edit</button>
+                                            <a href="<?= base_url('dosen/deleteMhs/') . $dm['id_mhs']; ?>" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
+                                        </td>
+                                    <?php } ?>
+                                </tr>
+                            <?php
+                                $no++;
+                            } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>3
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -100,8 +102,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                     </div>
                 </form>
             </div>
@@ -147,8 +149,8 @@
                             <input type="hidden" name="id_mhs" value="<?= $dm['id_mhs'] ?>">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                         </div>
                     </form>
                 </div>

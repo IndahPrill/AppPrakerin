@@ -75,4 +75,48 @@ class Koordinator_model extends CI_Model
     {
         return $this->db->query("")->result_array();
     }
+
+    public function getDataDsn()
+    {
+        return $this->db->query(
+            "SELECT 
+                a.id_dsn
+                , a.nik_dsn
+                , a.nama_dsn
+                , b.jmlh_dsn
+            FROM 
+                m_dosen a 
+                LEFT JOIN (
+                        SELECT 
+                            mb.nik_dsn
+                            , COUNT(mb.nik_dsn) jmlh_dsn 
+                        FROM m_bimbingan mb 
+                        GROUP BY mb.nik_dsn
+                ) b ON a.nik_dsn = b.nik_dsn
+            WHERE
+                a.status_dsn = '1'"
+        )->result_array();
+    }
+
+    public function getDataMhs()
+    {
+        return $this->db->query(
+            "SELECT 
+                a.id_mhs
+                , a.npm_mhs
+                , a.nama_mhs
+                , b.jmlh_mhs
+            FROM 
+                m_mahasiswa a 
+                LEFT JOIN (
+                        SELECT 
+                                mb.npm_mhs
+                                , COUNT(mb.npm_mhs) jmlh_mhs 
+                        FROM m_bimbingan mb 
+                        GROUP BY mb.npm_mhs
+                ) b ON a.npm_mhs = b.npm_mhs
+            WHERE
+                a.status_mhs = '1'"
+        )->result_array();
+    }
 }

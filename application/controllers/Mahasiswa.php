@@ -145,6 +145,10 @@ class Mahasiswa extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function upFileLpr()
+    {
+    }
+
     public function datadosen()
     {
         $data['title'] = 'Data Dosen';

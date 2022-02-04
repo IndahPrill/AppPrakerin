@@ -8,6 +8,8 @@ class Koordinator extends CI_Controller
         parent::__construct();
         $this->load->model('Menu_model');
         $this->load->model('Koordinator_model');
+        $this->load->model('Dosen_model');
+        $this->load->model('Mahasiswa_model');
         is_logged_in();
     }
 
@@ -236,6 +238,8 @@ class Koordinator extends CI_Controller
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
         $data['dsnPembimbing'] = $this->Koordinator_model->getdataDsnPembimbing();
+        $data['data_dsn'] = $this->Koordinator_model->getDataDsn();
+        $data['data_mhs'] = $this->Koordinator_model->getDataMhs();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -248,15 +252,11 @@ class Koordinator extends CI_Controller
     public function addDsnPembimbing()
     {
         $nik_dsn    = $this->input->post('nik_dsn');
-        $nama_dsn   = $this->input->post('nama_dsn');
         $npm_mhs    = $this->input->post('npm_mhs');
-        $nama_mhs   = $this->input->post('nama_mhs');
 
         $data = array(
             'nik_dsn'   => $nik_dsn,
-            'nama_dsn'  => $nama_dsn,
-            'npm_mhs'   => $npm_mhs,
-            'nama_mhs'  => $nama_mhs
+            'npm_mhs'   => $npm_mhs
         );
 
         $hasil = $this->Koordinator_model->addDsnPembimbing($data);
@@ -278,15 +278,11 @@ class Koordinator extends CI_Controller
     {
         $id_bim     = $this->input->post('id_bim');
         $nik_dsn    = $this->input->post('nik_dsn');
-        $nama_dsn   = $this->input->post('nama_dsn');
         $npm_mhs    = $this->input->post('npm_mhs');
-        $nama_mhs   = $this->input->post('nama_mhs');
 
         $data = array(
             'nik_dsn'   => $nik_dsn,
-            'nama_dsn'  => $nama_dsn,
-            'npm_mhs'   => $npm_mhs,
-            'nama_mhs'  => $nama_mhs
+            'npm_mhs'   => $npm_mhs
         );
 
         $hasil = $this->Koordinator_model->editDsnPembimbing($id_bim, $data);

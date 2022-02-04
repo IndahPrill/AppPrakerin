@@ -10,6 +10,7 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tmbhLokasiPKL"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
         </div>
         <div class="card-body">
+            <?= $this->session->flashdata('message'); ?>
             <div class="table-responsive">
                 <table class="table table-stripped table-hover datatabel">
                     <thead>
@@ -90,8 +91,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                 </div>
             </form>
         </div>
@@ -134,8 +135,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                     </div>
                 </form>
             </div>
