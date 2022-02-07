@@ -9,6 +9,7 @@ class Mahasiswa extends CI_Controller
         $this->load->model('Menu_model');
         $this->load->model('Dosen_model');
         $this->load->model('Koordinator_model');
+        $this->load->model('Mahasiswa_model');
         is_logged_in();
     }
 
@@ -137,6 +138,16 @@ class Mahasiswa extends CI_Controller
         $data['title'] = 'Upload Laporan';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
+        $user = $this->Menu_model->GetUser($email);
+
+        $hakAkses = $user['role_id'];
+        if ($hakAkses == '3') {
+            $npm = $user['npm'];
+        } else {
+            $npm = '';
+        }
+
+        $data['dt_bim'] = $this->Koordinator_model->getDataBimbingan($npm);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -145,8 +156,35 @@ class Mahasiswa extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function upFileLpr()
+    public function uploadFile()
     {
+        $config['upload_path'] = './assets/file/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size'] = '2048';
+        $config['overwrite'] = true;
+        $config['file_name'] = 'laporan_' . date('d-m-y');
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file')) {
+            $file = $this->upload->data('file_name');
+            $id_bimbingan = $this->input->post('id_bimbingan');
+            $id_mahasiswa = $this->input->post('id_mahasiswa');
+            $id_dosen = $this->input->post('id_dosen');
+            $id_periode = $this->input->post('id_periode');
+            $tgl_upload = date('Y-m-d');
+
+            $data = array(
+                'id_bimbingan' => $id_bimbingan,
+                'id_mahasiswa' => $id_mahasiswa,
+                'id_dosen' => $id_dosen,
+                'id_periode' => $id_periode,
+                'tgl_upload' => $tgl_upload,
+                'file' => $file
+            );
+        } else {
+            echo $this->upload->display_errors();
+        }
     }
 
     public function datadosen()

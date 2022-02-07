@@ -119,4 +119,26 @@ class Koordinator_model extends CI_Model
                 a.status_mhs = '1'"
         )->result_array();
     }
+
+    public function getDataBimbingan($npm)
+    {
+        return $this->db->query(
+            "SELECT 
+                a.status_bimbingan
+                , a.catatan
+                , b.nik_dsn
+                , b.nama_dsn
+                , c.npm_mhs
+                , c.nama_mhs
+                , c.kelas_mhs
+            FROM
+                m_bimbingan a
+                LEFT JOIN m_dosen b ON a.nik_dsn = b.nik_dsn
+                LEFT JOIN m_mahasiswa c ON a.npm_mhs = c.npm_mhs
+            WHERE
+                b.status_dsn = '1'
+                AND c.status_mhs = '1'
+                AND c.npm_mhs = '$npm'"
+        )->result_array();
+    }
 }

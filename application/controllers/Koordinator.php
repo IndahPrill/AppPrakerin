@@ -234,7 +234,7 @@ class Koordinator extends CI_Controller
 
     public function dftrDsnPembimbing()
     {
-        $data['title'] = 'Daftar Dosen Pembimbing';
+        $data['title'] = 'Dosen Pembimbing';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
         $data['dsnPembimbing'] = $this->Koordinator_model->getdataDsnPembimbing();

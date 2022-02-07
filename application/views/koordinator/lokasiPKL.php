@@ -17,9 +17,9 @@
                         <tr>
                             <th>No</th>
                             <th>NPM</th>
-                            <th>Nama Mahasiswa</th>
+                            <th>Mahasiswa</th>
                             <th>Nama Perusahaan</th>
-                            <th>Alamat</th>
+                            <th>Alamat Perusahaan</th>
                             <th>Pembimbing Eksternal</th>
                             <th>No.Telpon</th>
                             <th>Action</th>
@@ -78,7 +78,7 @@
                         <input type="text" class="form-control" name="nama_perusahaan">
                     </div>
                     <div class="form-group">
-                        <label>Alamat</label>
+                        <label>Alamat Perusahaan</label>
                         <input type="text" class="form-control" name="alamat_lks">
                     </div>
                     <div class="form-group">
@@ -91,8 +91,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                 </div>
             </form>
         </div>
@@ -135,8 +135,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                     </div>
                 </form>
             </div>
