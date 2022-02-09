@@ -26,22 +26,22 @@
                 <?= form_open_multipart('mahasiswa/uploadFileMhs') ?>
                 <form action="<?= base_url('mahasiswa/uploadFileMhs'); ?>" method="POST">
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label>NPM</label>
                             <input type="text" class="form-control" name="npm_mhs" value="<?= $val_npm_mhs ?>" <?= $readonly ?> />
                         </div>
-                        <div class="form-group col-md-9">
+                        <div class="form-group col-md-10">
                             <label>Nama Mahasiswa</label>
                             <input type="text" class="form-control" name="nama_mhs" value="<?= $val_nama_mhs ?>" <?= $readonly ?> />
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label>NIK</label>
                             <input type="text" class="form-control" name="nik_dsn" value="<?= $val_nik_dsn ?>" <?= $readonly ?> />
                         </div>
-                        <div class="form-group col-md-9">
-                            <label>Nama Dosen</label>
+                        <div class="form-group col-md-10">
+                            <label>Nama Dosen Pembimbing</label>
                             <input type="text" class="form-control" name="nama_dsn" value="<?= $val_nama_dsn ?>" <?= $readonly ?> />
                         </div>
                     </div>

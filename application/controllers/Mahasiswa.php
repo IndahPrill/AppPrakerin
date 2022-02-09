@@ -170,7 +170,7 @@ class Mahasiswa extends CI_Controller
         $config['allowed_types'] = 'pdf';
         $config['max_size']      = '16048';
         $config['overwrite']     = true;
-        $config['file_name']     = 'laporan_' . $nik_dsn . '_' . $npm_mhs . '_' . date('d-m-y');
+        $config['file_name']     = 'laporan_' . $nik_dsn . '_' . $npm_mhs . '_' . date('Ymd') . '_' . date('His');
 
         $this->load->library('upload', $config);
 
@@ -316,13 +316,23 @@ class Mahasiswa extends CI_Controller
         $data['title'] = 'Jurnal Laporan';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
+        $npm_mhs = $this->session->userdata('npm');
 
-        // $data['jrnLaporan'] = $this->Koordinator_model->getJurnalLaporan();
+        $data['jrnLaporan'] = $this->Koordinator_model->getJurnalLaporan($npm_mhs);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('mahasiswa/jurnalLaporan', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function downloadLaporan()
+    {
+        if ($this->uri->segment(3)) {
+            $data   = file_get_contents('./assets/file/laporan/bimbingan/' . $this->uri->segment(3));
+        }
+        $name   = $this->uri->segment(3);
+        force_download($name, $data);
     }
 }

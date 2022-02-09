@@ -71,9 +71,28 @@ class Koordinator_model extends CI_Model
         return $hsl;
     }
 
-    public function getJurnalLaporan()
+    public function getJurnalLaporan($npm_mhs)
     {
-        return $this->db->query("")->result_array();
+        return $this->db->query(
+            "SELECT 
+                a.id_nilai,
+                b.nik_dsn,
+                b.nama_dsn,
+                a.bimbingan_ke,
+                a.topik,
+                a.file_mhs,
+                a.file_revisi,
+                a.catatan
+            FROM
+                m_nilai a
+                LEFT JOIN m_dosen b ON a.nik_dsn = b.nik_dsn
+                LEFT JOIN m_mahasiswa c ON a.npm_mhs = c.npm_mhs
+            WHERE
+                b.status_dsn = '1'
+                AND c.status_mhs = '1'
+                AND a.npm_mhs = '$npm_mhs'
+            ORDER BY a.bimbingan_ke DESC"
+        )->result_array();
     }
 
     public function getDataDsn()
