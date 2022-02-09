@@ -32,4 +32,23 @@ class Mahasiswa_model extends CI_Model
 
         return $hsl;
     }
+
+    public function getBimbinganKe($npm_mhs, $nik_dsn)
+    {
+        $query = $this->db->query("SELECT COUNT(bimbingan_ke) AS bim_ke FROM m_nilai WHERE nik_dsn=$nik_dsn AND npm_mhs=$npm_mhs")->row_array();
+
+        if ($query['bim_ke'] > 0) {
+            $bim_ke = $query['bim_ke'] + 1;
+        } else {
+            $bim_ke = 1;
+        }
+
+        return $bim_ke;
+    }
+
+    public function uploadFileMhs($data)
+    {
+        $query = $this->db->insert("m_nilai", $data);
+        return $query;
+    }
 }

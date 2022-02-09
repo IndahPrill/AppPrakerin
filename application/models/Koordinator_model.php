@@ -139,6 +139,6 @@ class Koordinator_model extends CI_Model
                 b.status_dsn = '1'
                 AND c.status_mhs = '1'
                 AND c.npm_mhs = '$npm'"
-        )->result_array();
+        )->row_array();
     }
 }

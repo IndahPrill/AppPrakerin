@@ -7,41 +7,42 @@
 
         <?php
         if ($dt_bim) {
-            $val_npm_mhs  = $dt_bim[0]['npm_mhs'];
-            $val_nama_mhs = $dt_bim[0]['nama_mhs'];
-            $val_nik_dsn  = $dt_bim[0]['nik_dsn'];
-            $val_nama_dsn = $dt_bim[0]['nama_dsn'];
-            $disabled = "disabled";
+            $val_npm_mhs  = $dt_bim['npm_mhs'];
+            $val_nama_mhs = $dt_bim['nama_mhs'];
+            $val_nik_dsn  = $dt_bim['nik_dsn'];
+            $val_nama_dsn = $dt_bim['nama_dsn'];
+            $readonly = "readonly";
         } else {
             $val_npm_mhs  = "";
             $val_nama_mhs = "";
             $val_nik_dsn  = "";
             $val_nama_dsn = "";
-            $disabled = "";
+            $readonly = "";
         }
         ?>
         <div class="card shadow mb-4">
             <div class="card-header py-3"></div>
             <div class="card-body">
-                <form action="<?= base_url('mahasiswa/uploadFile'); ?>" method="post">
+                <?= form_open_multipart('mahasiswa/uploadFileMhs') ?>
+                <form action="<?= base_url('mahasiswa/uploadFileMhs'); ?>" method="POST">
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>NPM</label>
-                            <input type="text" class="form-control" name="npm_mhs" value="<?= $val_npm_mhs ?>" <?= $disabled ?> />
+                            <input type="text" class="form-control" name="npm_mhs" value="<?= $val_npm_mhs ?>" <?= $readonly ?> />
                         </div>
                         <div class="form-group col-md-9">
                             <label>Nama Mahasiswa</label>
-                            <input type="text" class="form-control" name="nama_mhs" value="<?= $val_nama_mhs ?>" <?= $disabled ?> />
+                            <input type="text" class="form-control" name="nama_mhs" value="<?= $val_nama_mhs ?>" <?= $readonly ?> />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>NIK</label>
-                            <input type="text" class="form-control" name="nik_dsn" value="<?= $val_nik_dsn ?>" <?= $disabled ?> />
+                            <input type="text" class="form-control" name="nik_dsn" value="<?= $val_nik_dsn ?>" <?= $readonly ?> />
                         </div>
                         <div class="form-group col-md-9">
                             <label>Nama Dosen</label>
-                            <input type="text" class="form-control" name="nama_dsn" value="<?= $val_nama_dsn ?>" <?= $disabled ?> />
+                            <input type="text" class="form-control" name="nama_dsn" value="<?= $val_nama_dsn ?>" <?= $readonly ?> />
                         </div>
                     </div>
                     <div class="form-row">
@@ -53,12 +54,13 @@
                     <div class="form-group">
                         <label>Upload Laporan PKL</label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="laporanPKL">
+                            <input type="file" class="custom-file-input" name="laporanPKL" accept=".pdf">
                             <label class="custom-file-label">Pilih File</label>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="fas fa-file-upload"></i>&nbsp;&nbsp;Upload</button>
                 </form>
+                <?= form_close() ?>
             </div>
         </div>
     </div>

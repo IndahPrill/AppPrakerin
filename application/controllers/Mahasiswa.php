@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+// set time zone
+date_default_timezone_set('Asia/Jakarta');
+
 class Mahasiswa extends CI_Controller
 {
     function __construct()
@@ -135,18 +138,16 @@ class Mahasiswa extends CI_Controller
 
     public function uploadlaporan()
     {
-        $data['title'] = 'Upload Laporan';
-        $email = $this->session->userdata('email');
-        $data['user'] = $this->Menu_model->GetUser($email);
-        $user = $this->Menu_model->GetUser($email);
+        $data['title']  = 'Upload Laporan';
+        $email          = $this->session->userdata('email');
+        $hakAkses       = $this->session->userdata('role_id');
+        $data['user']   = $this->Menu_model->GetUser($email);
 
-        $hakAkses = $user['role_id'];
         if ($hakAkses == '3') {
-            $npm = $user['npm'];
+            $npm = $this->session->userdata('npm');
         } else {
             $npm = '';
         }
-
         $data['dt_bim'] = $this->Koordinator_model->getDataBimbingan($npm);
 
         $this->load->view('templates/header', $data);
@@ -156,34 +157,64 @@ class Mahasiswa extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function uploadFile()
+    public function uploadFileMhs()
     {
-        $config['upload_path'] = './assets/file/';
+        $nama    = $this->session->userdata('name');
+        $npm_mhs = $this->input->post('npm_mhs');
+        $nik_dsn = $this->input->post('nik_dsn');
+        $topik   = $this->input->post('topik');
+
+        $bim_ke  = $this->Mahasiswa_model->getBimbinganKe($npm_mhs, $nik_dsn);
+
+        $config['upload_path']   = './assets/file/laporan/bimbingan/';
         $config['allowed_types'] = 'pdf';
-        $config['max_size'] = '2048';
-        $config['overwrite'] = true;
-        $config['file_name'] = 'laporan_' . date('d-m-y');
+        $config['max_size']      = '16048';
+        $config['overwrite']     = true;
+        $config['file_name']     = 'laporan_' . $nik_dsn . '_' . $npm_mhs . '_' . date('d-m-y');
 
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('file')) {
-            $file = $this->upload->data('file_name');
-            $id_bimbingan = $this->input->post('id_bimbingan');
-            $id_mahasiswa = $this->input->post('id_mahasiswa');
-            $id_dosen = $this->input->post('id_dosen');
-            $id_periode = $this->input->post('id_periode');
-            $tgl_upload = date('Y-m-d');
+        if (isset($_FILES['laporanPKL'])) {
+            if ($this->upload->do_upload('laporanPKL')) {
+                $file       = $config['file_name'] . $this->upload->data('file_ext'); // nama file + fungsi upload
+                $tgl_upload = date('Y-m-d H:i:s');
 
-            $data = array(
-                'id_bimbingan' => $id_bimbingan,
-                'id_mahasiswa' => $id_mahasiswa,
-                'id_dosen' => $id_dosen,
-                'id_periode' => $id_periode,
-                'tgl_upload' => $tgl_upload,
-                'file' => $file
-            );
+                $data = array(
+                    'npm_mhs'       => $npm_mhs,
+                    'nik_dsn'       => $nik_dsn,
+                    'file_mhs'      => $file,
+                    'bimbingan_ke'  => $bim_ke,
+                    'topik'         => $topik,
+                    'proyek_ke'     => '2',
+                    'tahun_ajaran'  => '2021/2022',
+                    'created_at'    => $tgl_upload,
+                    'created_by'    => $nama
+                );
+
+                $hasil = $this->Mahasiswa_model->uploadFileMhs($data); // mengirimkan data ke model
+
+                if ($hasil) {
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                    <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Upload</div>');
+                    redirect('mahasiswa/uploadlaporan');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                    <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Upload</div>');
+                    redirect('mahasiswa/uploadlaporan');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>' . $this->upload->display_errors() . '</div>');
+                redirect('mahasiswa/uploadlaporan');
+            }
         } else {
-            echo $this->upload->display_errors();
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>GAGAL</div>');
+            redirect('mahasiswa/uploadlaporan');
         }
     }
 
