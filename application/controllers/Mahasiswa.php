@@ -335,4 +335,13 @@ class Mahasiswa extends CI_Controller
         $name   = $this->uri->segment(3);
         force_download($name, $data);
     }
+
+    public function downloadLaporanRevisi()
+    {
+        if ($this->uri->segment(3)) {
+            $data   = file_get_contents('./assets/file/laporan/revisi/' . $this->uri->segment(3));
+        }
+        $name   = $this->uri->segment(3);
+        force_download($name, $data);
+    }
 }

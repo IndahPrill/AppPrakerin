@@ -41,8 +41,6 @@
                                                     <a class="dropdown-item" href="<?= base_url('./assets/file/laporan/bimbingan/') . $jl['file_mhs']; ?>" target="_blank"><i class="fas fa-search"></i>&nbsp;Review</a>
                                                 </div>
                                             </div>
-                                            <!-- <a href="<?= base_url('mahasiswa/downloadLaporan/') . $jl['file_mhs']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-file-pdf"></i>&nbsp;Download</a> -->
-                                            <!-- <a href="<?= base_url('./assets/file/laporan/bimbingan/') . $jl['file_mhs']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-file-pdf"></i>&nbsp;View</a> -->
                                         <?php } else { ?>
                                             <span class="badge badge-info">Belum ada file</span>
                                         <?php } ?>
@@ -50,7 +48,15 @@
                                     <td>
                                         <?php
                                         if ($jl['file_revisi']) { ?>
-                                            <a href="<?= base_url('mahasiswa/downloadLaporanRevisi/') . $jl['id_nilai']; ?>" class="btn btn-sm btn-success"><i class="fa fa-file-pdf"></i>&nbsp;Download</a>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Action
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="<?= base_url('mahasiswa/downloadLaporanRevisi/') . $jl['file_revisi']; ?>"><i class="fas fa-file-pdf"></i>&nbsp;Download</a>
+                                                    <a class="dropdown-item" href="<?= base_url('./assets/file/laporan/revisi/') . $jl['file_revisi']; ?>" target="_blank"><i class="fas fa-search"></i>&nbsp;Review</a>
+                                                </div>
+                                            </div>
                                         <?php } else { ?>
                                             <span class="badge badge-info">Belum ada file</span>
                                         <?php } ?>
