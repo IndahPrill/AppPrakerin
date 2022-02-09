@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Feb 2022 pada 23.22
+-- Waktu pembuatan: 30 Jan 2022 pada 06.20
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.3.25
 
@@ -30,24 +30,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `m_bimbingan` (
   `id_bim` int(11) NOT NULL,
   `nik_dsn` bigint(25) NOT NULL,
-  `npm_mhs` int(11) NOT NULL,
+  `nik_mhs` int(11) NOT NULL,
   `status_bimbingan` enum('0','1','2') NOT NULL DEFAULT '0' COMMENT '0 = Proses Bimbingan\r\n1 = Siap Sidang\r\n2 = Belum Siap Sidang',
   `catatan` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `created_by` varchar(25) NOT NULL
+  `created_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `m_bimbingan`
---
-
-INSERT INTO `m_bimbingan` (`id_bim`, `nik_dsn`, `npm_mhs`, `status_bimbingan`, `catatan`, `created_at`, `created_by`) VALUES
-(1, 1234567890123, 1163009, '0', '', '2022-01-31 05:49:10', 'fadly'),
-(2, 3210987654321, 1163086, '0', '', '2022-01-31 05:51:54', 'fadly'),
-(3, 10788030, 1202010, '0', '', '2022-02-07 21:36:43', 'fadly'),
-(4, 10788030, 1202020, '0', '', '2022-02-07 21:36:43', 'fadly'),
-(5, 10788029, 1202019, '0', '', '2022-02-07 21:36:44', 'fadly'),
-(6, 10788029, 1202009, '0', '', '2022-02-07 21:36:46', 'fadly');
 
 -- --------------------------------------------------------
 
@@ -70,16 +58,8 @@ CREATE TABLE `m_dosen` (
 --
 
 INSERT INTO `m_dosen` (`id_dsn`, `nik_dsn`, `prodi_dsn`, `nama_dsn`, `status_dsn`, `created_at`, `created_by`) VALUES
-(1, 1234567890123, 'D3 Teknik Informatika', 'Ruslan', '0', '2022-01-31 11:19:39', 'fadly'),
-(2, 3210987654321, 'D3 Teknik Informatika', 'Indateng', '0', '2022-01-31 11:19:41', 'fadly'),
-(11, 10708035, 'D3 Teknik Informatika', 'Bayu Setiawan', '1', '2022-01-31 07:47:49', 'fadly'),
-(12, 10708036, 'D3 Teknik Informatika', 'Rizki Nugraha', '1', '2022-01-31 07:47:49', 'fadly'),
-(13, 10708037, 'D3 Teknik Informatika', 'Alifiyah yahya', '1', '2022-01-31 07:47:49', 'fadly'),
-(14, 10708038, 'D3 Teknik Informatika', 'Nurul Malika', '1', '2022-01-31 07:47:49', 'fadly'),
-(15, 10788027, 'D3 Teknik Informatika', 'Supratno', '1', '2022-01-31 07:47:49', 'fadly'),
-(16, 10788028, 'D3 Teknik Informatika', 'Reza Rahardia', '1', '2022-01-31 07:47:49', 'fadly'),
-(17, 10788029, 'D3 Teknik Informatika', 'Anggika Sari', '1', '2022-01-31 07:47:49', 'fadly'),
-(18, 10788030, 'D3 Teknik Informatika', 'Ismail Kadir', '1', '2022-01-31 07:47:49', 'fadly');
+(1, 1234567890123, 'D3 Teknik Informatika', 'Ruslan', '1', '2022-01-24 11:05:03', 'fadly'),
+(2, 3210987654321, 'D4 Teknik Informatika', 'Indateng', '0', '2022-01-24 13:31:55', '');
 
 -- --------------------------------------------------------
 
@@ -97,15 +77,6 @@ CREATE TABLE `m_lokasi` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_by` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `m_lokasi`
---
-
-INSERT INTO `m_lokasi` (`id_lks`, `npm_mhs`, `nama_perusahaan`, `alamat_lks`, `dsn_eksternal`, `no_tlp_dsn_eksternal`, `created_at`, `created_by`) VALUES
-(1, 1163086, 'PT Perkebunan Nusantara VII', 'Jl. Sindangsirna, No. 4, Bandung, 40153', 'Angga', '082334567891', '2022-01-31 05:52:02', ''),
-(3, 1163009, 'PT Infomedia Nusantara', 'Jl RS Fatmawati No 77 - 81 Jakarta Selatan', 'Didin Irfandi', '081234567890', '2022-01-31 05:24:23', ''),
-(5, 1202001, 'PT Perkebunan Nusantara VII', 'Jl. Sarimanah II No.150, Sarijadi, Sukasari , Kota Bandung Jawa Barat', 'Angga Saputra', '0853-4034-7955', '2022-02-07 20:59:19', '');
 
 -- --------------------------------------------------------
 
@@ -129,28 +100,8 @@ CREATE TABLE `m_mahasiswa` (
 --
 
 INSERT INTO `m_mahasiswa` (`id_mhs`, `npm_mhs`, `nama_mhs`, `prodi_mhs`, `kelas_mhs`, `status_mhs`, `created_at`, `created_by`) VALUES
-(1, 1163009, 'Anadalo Mokosisi', 'D3 Teknik Informatika', '3A', '0', '2022-01-31 11:19:47', 'fadly'),
-(4, 1163086, 'Anadalo', 'D3 Teknik Informatika', '3A', '0', '2022-01-31 11:19:49', 'fadly'),
-(5, 1202001, 'Agnes wardani', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(6, 1202011, 'Ananda Myesha', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(7, 1202012, 'Aulia Rizka', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(8, 1202002, 'Ayu Salsabilah', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(9, 1202003, 'Bayu Arwana', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(10, 1202004, 'Cahyo waluyo', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(11, 1202013, 'Cinta salsabillah', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(12, 1202005, 'Dika Prasetya', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(13, 1202014, 'Dita Aisya', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(14, 1202006, 'Fadillah azahra', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(15, 1202015, 'Furqan S', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(16, 1202007, 'Gunawan', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(17, 1202008, 'Indah Triapriliani', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(18, 1202016, 'Nanda Aulika', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(19, 1202017, 'Putri Ayu', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(20, 1202018, 'Revika Audia', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(21, 1202009, 'Reza Nugraha', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(22, 1202019, 'Riri Eka Puspita', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(23, 1202020, 'Tri Ananda', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
-(24, 1202010, 'Yanti ayu ', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly');
+(1, 1163009, 'Anadalo Mokosisi', 'D3 Teknik Informatika', '3A', '1', '2022-01-24 05:27:26', 'fadly'),
+(4, 1164086, 'Anadalo', 'D4 Teknik Informatika', '4C', '1', '2022-01-24 06:07:48', '');
 
 -- --------------------------------------------------------
 
@@ -163,25 +114,13 @@ CREATE TABLE `m_nilai` (
   `nik_dsn` bigint(25) NOT NULL,
   `npm_mhs` int(11) NOT NULL,
   `nilai_mhs` int(11) NOT NULL,
-  `bimbingan_ke` int(11) DEFAULT NULL,
-  `topik` varchar(255) DEFAULT NULL,
-  `file_mhs` varchar(255) DEFAULT NULL,
-  `file_revisi` varchar(255) DEFAULT NULL,
-  `catatan` text DEFAULT NULL,
-  `proyek_ke` int(11) DEFAULT NULL,
-  `tahun_ajaran` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `created_by` varchar(25) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(25) DEFAULT NULL
+  `bimbingan_ke` int(11) NOT NULL,
+  `file_mhs` varchar(255) NOT NULL,
+  `file_revisi` varchar(255) NOT NULL,
+  `catatan` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `m_nilai`
---
-
-INSERT INTO `m_nilai` (`id_nilai`, `nik_dsn`, `npm_mhs`, `nilai_mhs`, `bimbingan_ke`, `topik`, `file_mhs`, `file_revisi`, `catatan`, `proyek_ke`, `tahun_ajaran`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 10788030, 1202010, 0, 1, 'Latar Belakang', 'laporan_10788030_1202010_20220910_222020.pdf', NULL, NULL, 2, '2021/2022', '2022-02-10 04:18:40', 'Yanti Ayu ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -208,10 +147,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `prodi`, `npm`, `nik`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(2, 'fadly', 'eprakerin2021@gmail.com', '', 0, 0, 'default.jpg', '$2y$10$fzCVGbHbuYSreFnhvY4fiOeJQzeRhMjEq/u1lTWncQOtO4ytzzbVC', 1, 1, 1641735264),
-(5, 'Bayu', 'didinirfandy16@gmail.com', '', 0, 10708035, 'default.jpg', '$2y$10$mu4qmmc52wh/E4MMxiqhPuaX1l7TnDXWUQZTjc9nltFS0XUVtinWC', 2, 1, 1641741738),
+(2, 'fadly', 'eprakerin2021@gmail.com', '', 0, 0, 'Pendaftaran_POLTEKPOS2.jpg', '$2y$10$fzCVGbHbuYSreFnhvY4fiOeJQzeRhMjEq/u1lTWncQOtO4ytzzbVC', 1, 1, 1641735264),
+(5, 'Pak ruslan', 'didinirfandy16@gmail.com', '', 0, 1234433232333, 'default.jpg', '$2y$10$mu4qmmc52wh/E4MMxiqhPuaX1l7TnDXWUQZTjc9nltFS0XUVtinWC', 2, 1, 1641741738),
 (9, 'koor', 'fadlyferdiansyah14@gmail.com', '', 0, 0, 'default.jpg', '$2y$10$4C8bKzTw/KTfrCgTCWt7/eMcXT0L3Dv8xHU.9aj33okueWZ.Mnhy.', 4, 1, 1642402263),
-(10, 'Yanti Ayu ', 'fadlyferdiansyah18@gmail.com', 'D3 Teknik Informatika', 1202010, 0, 'default.jpg', '$2y$10$ZlAYcKDVdGL0fWmsej7HzutJwyAFSbq1HXlGICHa16TvxATh8UDfy', 3, 1, 1642864757);
+(10, 'fadly', 'fadlyferdiansyah18@gmail.com', 'D3 Teknik Informatika 2A', 124454, 0, 'default.jpg', '$2y$10$ZlAYcKDVdGL0fWmsej7HzutJwyAFSbq1HXlGICHa16TvxATh8UDfy', 3, 1, 1642864757);
 
 -- --------------------------------------------------------
 
@@ -318,7 +257,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (16, 4, 'Edit Profile', 'koordinator/edit', 'fas fa-fw fa-user-edit', 1),
 (17, 4, 'Change Password ', 'koordinator/changepassword', 'fas fa-fw fa-key', 1),
 (18, 4, 'Lokasi PKL', 'koordinator/lokasiPKL', 'fas fa-fw fa-map-marked-alt', 1),
-(19, 4, 'Dosen Pembimbing', 'koordinator/dftrDsnPembimbing', 'fas fa-fw fa-street-view', 1),
+(19, 4, 'Daftar Dosen Pembimbing', 'koordinator/dftrDsnPembimbing', 'fas fa-fw fa-street-view', 1),
 (21, 3, 'Jurnal Laporan', 'mahasiswa/jurnalLaporan', 'fas fa-fw fa-book', 1);
 
 -- --------------------------------------------------------
@@ -412,31 +351,31 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT untuk tabel `m_bimbingan`
 --
 ALTER TABLE `m_bimbingan`
-  MODIFY `id_bim` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_bim` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `m_dosen`
 --
 ALTER TABLE `m_dosen`
-  MODIFY `id_dsn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_dsn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `m_lokasi`
 --
 ALTER TABLE `m_lokasi`
-  MODIFY `id_lks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_lks` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `m_mahasiswa`
 --
 ALTER TABLE `m_mahasiswa`
-  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `m_nilai`
 --
 ALTER TABLE `m_nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
