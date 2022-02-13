@@ -29,7 +29,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'E-Prakerin Login';
+            $data['title'] = 'Login';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/login');
             $this->load->view('templates/auth_footer');
@@ -49,7 +49,10 @@ class Auth extends CI_Controller
                 //cekpassword
                 if (password_verify($password, $user['password'])) {
                     $data = [
+                        'name' => $user['name'],
                         'email' => $user['email'],
+                        'nik' => $user['nik'],
+                        'npm' => $user['npm'],
                         'role_id' => $user['role_id']
                     ];
 

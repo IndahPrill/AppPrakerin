@@ -1,0 +1,16 @@
+user  : admin
+email : eprakerin2021@gmail.com
+pass  : united98
+
+user  : dosen
+email : didinirfandy16@gmail.com
+pass  : 12345678
+
+User  : Koor
+Email : fadlyferdiansyah14@gmail.com
+Pass  : 12345678
+
+User  : mahasiswa
+Email : fadlyferdiansyah18@gmail.com
+Pass  : united98
+

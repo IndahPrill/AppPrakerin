@@ -11,12 +11,13 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Mahasiswa</th>
                                 <th>NPM</th>
-                                <th>Judul Laporan</th>
-                                <th>File</th>
-                                <th>Action</th>
+                                <th>Nama</th>
+                                <th>Kelas</th>
+                                <th>Topik Bimbingan</th>
+                                <th>File Laporan</th>
                                 <th>Komentar</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>

@@ -29,20 +29,17 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Apakah anda yakin keluar dari aplikasi ini?</div>
+            <div class="modal-body">Apakah anda yakin keluar?</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
-                <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Ya</a>
+                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Tidak</button>
+                <a class="btn btn-sm btn-primary" href="<?= base_url('auth/logout'); ?>">Ya</a>
             </div>
         </div>
     </div>
 </div>
 
-<?php $this->load->view("koordinator/modalTambahLokasiPKL"); ?>
-<?php $this->load->view("koordinator/modalTambahDsnPembimbing"); ?>
-
 <!-- Bootstrap core JavaScript-->
-<script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
+<script src="<?= base_url('assets/'); ?>vendor/jquery/jquery-3.6.0.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->

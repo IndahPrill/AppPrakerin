@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group">
                         <select name="menu_id" id="menu_id" class="form-control">
-                            <option value="">Select Menu</option>
+                            <option value="">-- PILIH --</option>
                             <?php foreach ($menu as $m) : ?>
                                 <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
                             <?php endforeach;  ?>
@@ -108,8 +108,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                        <button type="submit" class="btn btn-primary">SImpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                     </div>
                 </div>
             </form>
@@ -138,13 +138,10 @@ foreach ($subMenu as $sm) {
                         </div>
                         <div class="form-group">
                             <select name="menu_id" id="menu_id" class="form-control">
-                                <option value="">Select Menu</option>
-                                <?php foreach ($menu as $m) {
-                                    if ($sm['id_menu'] == $m['id']) { ?>
-                                        <option value="<?= $m['id']; ?>" selected><?= $m['menu']; ?></option>
-                                    <?php } else { ?>
-                                        <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
-                                <?php }
+                                <option value="">-- PILIH --</option>
+                                <?php foreach ($menu as $m) { ?>
+                                    <option value="<?= $m['id']; ?>" <?= ($sm['id_menu'] == $m['id']) ? "selected" : "" ?>><?= $m['menu']; ?></option>
+                                <?php
                                 } ?>
                             </select>
                         </div>
@@ -163,8 +160,8 @@ foreach ($subMenu as $sm) {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tutup</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                         </div>
                     </div>
                 </form>

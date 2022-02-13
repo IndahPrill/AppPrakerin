@@ -8,6 +8,8 @@ class Koordinator extends CI_Controller
         parent::__construct();
         $this->load->model('Menu_model');
         $this->load->model('Koordinator_model');
+        $this->load->model('Dosen_model');
+        $this->load->model('Mahasiswa_model');
         is_logged_in();
     }
 
@@ -148,20 +150,7 @@ class Koordinator extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function dftrDsnPembimbing()
-    {
-        $data['title'] = 'Daftar Dosen Pembimbing';
-        $email = $this->session->userdata('email');
-        $data['user'] = $this->Menu_model->GetUser($email);
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('koordinator/dftrDsnPembimbing', $data);
-        $this->load->view('templates/footer');
-    }
-
-    // Start Proses Data Dosen
+    // Start Proses Data Lokasi
     public function addLksPkl()
     {
         $npm            = $this->input->post('npm_mhs');
@@ -184,12 +173,12 @@ class Koordinator extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
             <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Tambahkan</div>');
-            redirect('mahasiswa/datadosen');
+            redirect('koordinator/lokasiPKL');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
             <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Tambahkan</div>');
-            redirect('mahasiswa/datadosen');
+            redirect('koordinator/lokasiPKL');
         }
     }
 
@@ -216,30 +205,116 @@ class Koordinator extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
             <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Ubah</div>');
-            redirect('mahasiswa/datadosen');
+            redirect('koordinator/lokasiPKL');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
             <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Ubah</div>');
-            redirect('mahasiswa/datadosen');
+            redirect('koordinator/lokasiPKL');
         }
     }
 
-    public function deleteLksPkl($id_dsn)
+    public function deleteLksPkl($id_lks)
     {
-        $hasil = $this->Koordinator_model->deleteLksPkl($id_dsn);
+        $hasil = $this->Koordinator_model->deleteLksPkl($id_lks);
 
         if ($hasil) {
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
             <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Hapus</div>');
-            redirect('mahasiswa/datadosen');
+            redirect('koordinator/lokasiPKL');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
             <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Hapus</div>');
-            redirect('mahasiswa/datadosen');
+            redirect('koordinator/lokasiPKL');
         }
     }
-    // End Proses Data Dosen
+    // End Proses Data Lokasi
+
+    public function dftrDsnPembimbing()
+    {
+        $data['title'] = 'Dosen Pembimbing';
+        $email = $this->session->userdata('email');
+        $data['user'] = $this->Menu_model->GetUser($email);
+        $data['dsnPembimbing'] = $this->Koordinator_model->getdataDsnPembimbing();
+        $data['data_dsn'] = $this->Koordinator_model->getDataDsn();
+        $data['data_mhs'] = $this->Koordinator_model->getDataMhs();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('koordinator/dftrDsnPembimbing', $data);
+        $this->load->view('templates/footer');
+    }
+
+    // Start Proses Data Dosen Pembimbing
+    public function addDsnPembimbing()
+    {
+        $nik_dsn    = $this->input->post('nik_dsn');
+        $npm_mhs    = $this->input->post('npm_mhs');
+
+        $data = array(
+            'nik_dsn'   => $nik_dsn,
+            'npm_mhs'   => $npm_mhs
+        );
+
+        $hasil = $this->Koordinator_model->addDsnPembimbing($data);
+
+        if ($hasil) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Tambahkan</div>');
+            redirect('koordinator/dftrDsnPembimbing');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Tambahkan</div>');
+            redirect('koordinator/dftrDsnPembimbing');
+        }
+    }
+
+    public function editDsnPembimbing()
+    {
+        $id_bim     = $this->input->post('id_bim');
+        $nik_dsn    = $this->input->post('nik_dsn');
+        $npm_mhs    = $this->input->post('npm_mhs');
+
+        $data = array(
+            'nik_dsn'   => $nik_dsn,
+            'npm_mhs'   => $npm_mhs
+        );
+
+        $hasil = $this->Koordinator_model->editDsnPembimbing($id_bim, $data);
+
+        if ($hasil) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Ubah</div>');
+            redirect('koordinator/dftrDsnPembimbing');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Ubah</div>');
+            redirect('koordinator/dftrDsnPembimbing');
+        }
+    }
+
+    public function deleteDsnPembimbing($id_bim)
+    {
+        $hasil = $this->Koordinator_model->deleteDsnPembimbing($id_bim);
+
+        if ($hasil) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Hapus</div>');
+            redirect('koordinator/dftrDsnPembimbing');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Hapus</div>');
+            redirect('koordinator/dftrDsnPembimbing');
+        }
+    }
+    // End Proses Data Dosen Pembimbing
 }

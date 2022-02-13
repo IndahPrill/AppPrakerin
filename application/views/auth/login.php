@@ -24,9 +24,7 @@
                                         <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
                                         <?= form_error('password', '<small class="text-danger pl-3">', '</small>');  ?>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
