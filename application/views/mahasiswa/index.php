@@ -9,45 +9,71 @@
             </div>
         </div>
 
-        <div class="col-lg-6 mb-4">
-            <!-- Illustrations -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <!-- <h6 class="m-0 font-weight-bold text-primary">
-                        Illustrations
-                    </h6> -->
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-fluid rounded-start" height="300px" width="300px" style="padding: 10px;">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Bio Data Diri
+                        </h6>
                     </div>
-                    <hr style="border-top: 1px black solid">
-                    <form>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Nama</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" value="<?= $user['name']; ?>">
-                            </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-fluid rounded-start" height="200px" width="200px" style="padding: 10px;">
                         </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">NPM</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" value="<?= $user['npm']; ?>">
+                        <hr style="border-top: 1px black solid">
+                        <form>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Nama</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['name']; ?>">
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Email</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" value="<?= $user['email']; ?>">
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">NPM</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['npm']; ?>">
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Program Studi</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" value="<?= $user['prodi']; ?>">
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Email</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['email']; ?>">
                             </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Program Studi</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['prodi']; ?>">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Bio Data Dosen Pembimbing
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="<?= base_url('assets/img/profile/') . $dosen['image']; ?>" class="img-fluid rounded-start" height="200px" width="200px" style="padding: 10px;">
                         </div>
-                    </form>
+                        <hr style="border-top: 1px black solid">
+                        <form>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Nama</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $dosen['nama_dsn']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">NIK</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $dosen['nik_dsn']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Email</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $dosen['email']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Program Studi</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $dosen['prodi_dsn']; ?>">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

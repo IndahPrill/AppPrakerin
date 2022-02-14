@@ -32,4 +32,12 @@ class Dosen_model extends CI_Model
 
         return $hsl;
     }
+
+    public function uploadFileDsn($data, $id_nilai)
+    {
+        $this->db->where('id_nilai', $id_nilai);
+        $query = $this->db->update('m_nilai', $data);
+
+        return $query;
+    }
 }

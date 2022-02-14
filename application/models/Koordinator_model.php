@@ -73,7 +73,13 @@ class Koordinator_model extends CI_Model
 
     public function getJurnalLaporan($npm_mhs)
     {
-        return $this->db->query(
+        if ($npm_mhs == '0') {
+            $whereNpm = "AND a.npm_mhs = '$npm_mhs'";
+        } else {
+            $whereNpm = "";
+        }
+
+        $query = $this->db->query(
             "SELECT 
                 a.id_nilai,
                 b.nik_dsn,
@@ -90,9 +96,10 @@ class Koordinator_model extends CI_Model
             WHERE
                 b.status_dsn = '1'
                 AND c.status_mhs = '1'
-                AND a.npm_mhs = '$npm_mhs'
+                $whereNpm
             ORDER BY a.bimbingan_ke DESC"
         )->result_array();
+        return  $query;
     }
 
     public function getDataDsn()

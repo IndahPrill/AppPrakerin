@@ -9,21 +9,73 @@
             </div>
         </div>
 
-
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Bio Data
+                        </h6>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= $user['name']; ?></h5>
-                        <p class="card-text"><?= $user['email']; ?></p>
-                        <p class="card-text"><?= $user['nik']; ?></p>
-                        <p class="card-text"><small class="text-muted">Member Since <?= date('d F Y', $user['date_created']); ?></small></p>
+                        <div class="text-center">
+                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-fluid rounded-start" height="200px" width="200px" style="padding: 10px;">
+                        </div>
+                        <hr style="border-top: 1px black solid">
+                        <form>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Nama</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['name']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">NIK</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['nik']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Email</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['email']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Program Studi</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['prodi']; ?>">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <!-- <div class="col-lg-7">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Illustrations
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-fluid rounded-start" height="200px" width="200px" style="padding: 10px;">
+                        </div>
+                        <hr style="border-top: 1px black solid">
+                        <form>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Nama</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['name']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">NPM</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['npm']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Email</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['email']; ?>">
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">Program Studi</label>
+                                <input type="text" readonly class="col-sm-8 form-control-plaintext" value="<?= $user['prodi']; ?>">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
         </div>
 
     </div>

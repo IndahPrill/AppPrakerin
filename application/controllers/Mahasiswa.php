@@ -21,6 +21,8 @@ class Mahasiswa extends CI_Controller
         $data['title'] = 'My Profile';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
+        $npm_mhs = $this->session->userdata('npm');
+        $data['dosen'] = $this->Mahasiswa_model->getDsnBim($npm_mhs);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -170,7 +172,7 @@ class Mahasiswa extends CI_Controller
         $config['allowed_types'] = 'pdf';
         $config['max_size']      = '16048';
         $config['overwrite']     = true;
-        $config['file_name']     = 'laporan_' . $nik_dsn . '_' . $npm_mhs . '_' . date('Ymd') . '_' . date('His');
+        $config['file_name']     = 'laporan_' . $nik_dsn . '_' . $npm_mhs . '_' . date('Ymd') . '_' . date('His'); //nama file
 
         $this->load->library('upload', $config);
 

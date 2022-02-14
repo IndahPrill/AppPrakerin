@@ -10,7 +10,7 @@
             </div> -->
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-stripped table-hover datatabel">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -64,8 +64,8 @@
                                     <td><?= $jl['catatan']; ?></td>
                                 </tr>
                             <?php
-                            }
-                            ?>
+                                $no++;
+                            } ?>
                         </tbody>
                     </table>
                 </div>
