@@ -65,10 +65,10 @@ class Dosen_model extends CI_Model
 
     public function getSubSidang($nik_dsn, $role_id)
     {
-        if ($role_id == "4") {
-            $whereNik = "";
-        } else if ($role_id == "2") {
+        if ($role_id == "2") {
             $whereNik = "AND a.nik_dsn = '$nik_dsn'";
+        } else {
+            $whereNik = "";
         }
 
         $query = $this->db->query(
