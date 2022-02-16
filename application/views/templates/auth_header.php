@@ -23,4 +23,4 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary" style="background-image: linear-gradient(180deg,#050b1c 10%,#041954 100%)">

@@ -5,7 +5,8 @@ class Menu_model extends CI_Model
 {
     public function GetUser($email)
     {
-        return $this->db->get_where('user', ['email' => $email])->row_array();
+        $query = $this->db->query("SELECT * FROM user WHERE email = '$email'")->row_array();
+        return $query;
     }
     public function getSubMenu()
     {

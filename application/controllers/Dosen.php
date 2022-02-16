@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+// set time zone
+date_default_timezone_set('Asia/Jakarta');
+
 class Dosen extends CI_Controller
 {
     function __construct()
@@ -8,6 +11,7 @@ class Dosen extends CI_Controller
         parent::__construct();
         $this->load->model('Menu_model');
         $this->load->model('Mahasiswa_model');
+        $this->load->model('Dosen_model');
         is_logged_in();
     }
 
@@ -16,6 +20,8 @@ class Dosen extends CI_Controller
         $data['title'] = 'My Profile';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
+        $nik = $this->session->userdata('nik');
+        $data['mhsBim'] = $this->Dosen_model->GetMhsBimbingan($nik);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -153,7 +159,10 @@ class Dosen extends CI_Controller
         $data['title'] = 'Laporan Mahasiswa';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
-
+        $nik_dsn = $this->session->userdata('nik');
+        $role_id = $this->session->userdata('role_id');
+        $data['lprnMhs'] = $this->Mahasiswa_model->getLaporanMhs($nik_dsn);
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -161,14 +170,72 @@ class Dosen extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function uploadFileDsn()
+    {
+        $nik_dsn    = $this->session->userdata('nik');
+        $name       = $this->session->userdata('name');
+        $id_nilai   = $this->input->post('id_nilai');
+        $npm_mhs    = $this->input->post('npm_mhs');
+        $nilai_mhs  = $this->input->post('nilai_mhs');
+        $catatan    = $this->input->post('catatan');
+
+        $config['upload_path'] = './assets/file/laporan/revisi/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size'] = '2048';
+        $config['overwrite'] = true;
+        $config['file_name'] = 'laporan_revisi_' . $nik_dsn . '_' . $npm_mhs . '_' . date('Ymd') . '_' . date('His');
+
+        $this->load->library('upload', $config);
+
+        if (isset($_FILES['revisiLprnPKL'])) {
+            if ($this->upload->do_upload('revisiLprnPKL')) {
+                $file = $config['file_name'] . $this->upload->data('file_ext'); //ambil nama file
+                $tgl_upload = date('Y-m-d H:i:s');
+
+                $data = array(
+                    'nilai_mhs'     => $nilai_mhs,
+                    'file_revisi'   => $file,
+                    'catatan'       => $catatan,
+                    'updated_at'    => $tgl_upload,
+                    'updated_by'    => $name
+                );
+
+                $hasil = $this->Dosen_model->uploadFileDsn($data, $id_nilai);
+
+                if ($hasil) {
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                    <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Di Upload</div>');
+                    redirect('dosen/laporanm');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                    <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Upload</div>');
+                    redirect('dosen/laporanm');
+                }    
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Upload</div>');
+                redirect('dosen/laporanm');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Upload</div>');
+            redirect('dosen/laporanm');
+        }
+    }
+
     public function viewm()
     {
         $data['title'] = 'Data Mahasiswa';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
-
         $data['m_mahasiswa'] = $this->db->get('user_menu')->result_array();
-        $data['data_mhs'] = $this->Mahasiswa_model->getDataMhs();
+        $nik_dsn = $this->session->userdata('nik');
+        $role_id = $this->session->userdata('role_id');
+        $data['data_mhs'] = $this->Mahasiswa_model->getDataMhs($role_id, $nik_dsn);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -258,4 +325,75 @@ class Dosen extends CI_Controller
         }
     }
     // End Proses Data Mahasiswa
+
+    public function pengajuanSidang()
+    {
+        $data['title'] = 'Pengajuan Sidang';
+        $email = $this->session->userdata('email');
+        $data['user'] = $this->Menu_model->GetUser($email);
+        $nik_dsn = $this->session->userdata('nik');
+        $role_id = $this->session->userdata('role_id');
+        $data['subSidang'] = $this->Dosen_model->getSubSidang($nik_dsn, $role_id);
+        $data['fileLprn'] = $this->Dosen_model->getFileLprnKoor();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('dosen/pengajuanSidang', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function approveDsn()
+    {
+        $stts_bim = $this->input->post('status_bimbingan');
+        $catatan  = $this->input->post('catatan');
+        $id_dim   = $this->input->post('id_dim');
+
+        $data = array(
+            'status_bimbingan' => $stts_bim,
+            'catatan'          => $catatan
+        );
+
+        $hasil = $this->Dosen_model->approveUpd($data, $id_dim);
+
+        if ($hasil) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil</div>');
+            redirect('dosen/pengajuanSidang');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal</div>');
+            redirect('dosen/pengajuanSidang');
+        }
+    }
+
+    public function approveKoor()
+    {
+        $stts_bim = $this->input->post('status_koor');
+        $catatan  = $this->input->post('catatan_koor');
+        $id_dim   = $this->input->post('id_dim');
+
+        $data = array(
+            'status_koor'   => $stts_bim,
+            'catatan_koor'  => $catatan
+        );
+
+        $hasil = $this->Dosen_model->approveUpd($data, $id_dim);
+
+        if ($hasil) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil</div>');
+            redirect('dosen/pengajuanSidang');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal</div>');
+            redirect('dosen/pengajuanSidang');
+        }
+    }
+
+
 }

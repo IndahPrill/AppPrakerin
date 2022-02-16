@@ -4,7 +4,6 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tmbhLokasiPKL"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
@@ -12,7 +11,7 @@
         <div class="card-body">
             <?= $this->session->flashdata('message'); ?>
             <div class="table-responsive">
-                <table class="table table-stripped table-hover datatabel">
+                <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>

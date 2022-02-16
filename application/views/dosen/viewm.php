@@ -5,26 +5,35 @@
         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <?php
-                if ($user['role_id'] == 1) { ?>
+            <?php
+            if ($user['role_id'] == 1) { ?>
+                <div class="card-header py-3">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newDataMhs"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
-                <?php } ?>
-            </div>
+                </div>
+            <?php } ?>
             <div class="card-body">
                 <?= $this->session->flashdata('message'); ?>
                 <div class="table-responsive">
-                    <table class="table table-stripped table-hover datatabel">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>NPM</th>
-                                <th>Nama</th>
-                                <th>Program Studi</th>
-                                <th>Kelas</th>
                                 <?php if ($user['role_id'] == 1) { ?>
+                                    <th>NPM</th>
+                                    <th>Nama</th>
+                                    <th>Program Studi</th>
+                                    <th>Kelas</th>
                                     <th>Status</th>
                                     <th>Action</th>
+                                <?php } else { ?>
+                                    <th>NPM</th>
+                                    <th>Nama</th>
+                                    <th>Program Studi</th>
+                                    <th>Kelas</th>
+                                    <th>Nama Perusahaan</th>
+                                    <th>Alamt Perusahaan</th>
+                                    <th>Nama Pembimbing</th>
+                                    <th>No Telepon</th>
                                 <?php } ?>
                             </tr>
                         </thead>
@@ -34,11 +43,11 @@
                             foreach ($data_mhs as $dm) { ?>
                                 <tr>
                                     <td><?= $no; ?></td>
-                                    <td><?= $dm['npm_mhs']; ?></td>
-                                    <td><?= $dm['nama_mhs']; ?></td>
-                                    <td><?= $dm['prodi_mhs']; ?></td>
-                                    <td><?= $dm['kelas_mhs']; ?></td>
                                     <?php if ($user['role_id'] == 1) { ?>
+                                        <td><?= $dm['npm_mhs']; ?></td>
+                                        <td><?= $dm['nama_mhs']; ?></td>
+                                        <td><?= $dm['prodi_mhs']; ?></td>
+                                        <td><?= $dm['kelas_mhs']; ?></td>
                                         <td>
                                             <?php
                                             if ($dm['status_mhs'] == 1) {
@@ -52,6 +61,15 @@
                                             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataMhs<?= $dm['id_mhs'] ?>"><i class="far fa-edit"></i>&nbsp;Edit</button>
                                             <a href="<?= base_url('dosen/deleteMhs/') . $dm['id_mhs']; ?>" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
                                         </td>
+                                    <?php } else { ?>
+                                        <td><?= $dm['npm_mhs']; ?></td>
+                                        <td><?= $dm['nama_mhs']; ?></td>
+                                        <td><?= $dm['prodi_mhs']; ?></td>
+                                        <td><?= $dm['kelas_mhs']; ?></td>
+                                        <td><?= $dm['nama_perusahaan']; ?></td>
+                                        <td><?= $dm['alamat_lks']; ?></td>
+                                        <td><?= $dm['dsn_eksternal']; ?></td>
+                                        <td><?= $dm['no_tlp_dsn_eksternal']; ?></td>
                                     <?php } ?>
                                 </tr>
                             <?php
@@ -60,7 +78,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>3
+            </div>
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -114,6 +132,7 @@
     <!-- Modal edit -->
     <?php
     foreach ($data_mhs as $dm) {
+        if ($user['role_id'] == 1) {
     ?>
         <div class="modal fade" id="editDataMhs<?= $dm['id_mhs'] ?>" tabindex="-1" role="dialog" aria-labelledby="editDataMhsLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -156,4 +175,5 @@
                 </div>
             </div>
         </div>
-    <?php } ?>
+    <?php } 
+}?>
