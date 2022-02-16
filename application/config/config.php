@@ -24,7 +24,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://localhost:7325/AppPrakerin/';
-$config['base_url'] = 'http://localhost/AppPrakerin/';
+// $config['base_url'] = 'http://localhost/AppPrakerin/';
+$config['base_url'] = 'http://localhost:7427/AppPrakerin/';
 
 /*
 |--------------------------------------------------------------------------

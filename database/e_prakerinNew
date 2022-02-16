@@ -1,0 +1,484 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 16 Feb 2022 pada 15.19
+-- Versi server: 10.4.17-MariaDB
+-- Versi PHP: 7.3.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `e_prakerin`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `m_bimbingan`
+--
+
+CREATE TABLE `m_bimbingan` (
+  `id_bim` int(11) NOT NULL,
+  `nik_dsn` bigint(25) NOT NULL,
+  `npm_mhs` int(11) NOT NULL,
+  `status_bimbingan` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '0 = Proses Bimbingan\r\n1 = Siap Sidang\r\n2 = Belum Siap Sidang\r\n3 = Penangguhan',
+  `status_koor` enum('0','1','2','3') NOT NULL COMMENT '0 = Proses Bimbingan\r\n1 = Siap Sidang\r\n2 = Belum Siap Sidang\r\n3 = Penangguhan',
+  `catatan` varchar(255) NOT NULL,
+  `catatan_koor` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `m_bimbingan`
+--
+
+INSERT INTO `m_bimbingan` (`id_bim`, `nik_dsn`, `npm_mhs`, `status_bimbingan`, `status_koor`, `catatan`, `catatan_koor`, `created_at`, `created_by`) VALUES
+(1, 1234567890123, 1163009, '0', '0', '', '', '2022-01-31 05:49:10', 'fadly'),
+(2, 3210987654321, 1163086, '0', '0', '', '', '2022-01-31 05:51:54', 'fadly'),
+(3, 10788030, 1202010, '1', '1', 'Ok acc', 'siap di acc nih', '2022-02-16 11:25:04', 'fadly'),
+(4, 10788030, 1202020, '0', '0', '', '', '2022-02-07 21:36:43', 'fadly'),
+(5, 10788029, 1202019, '0', '0', '', '', '2022-02-07 21:36:44', 'fadly'),
+(6, 10788029, 1202009, '0', '0', '', '', '2022-02-07 21:36:46', 'fadly');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `m_dosen`
+--
+
+CREATE TABLE `m_dosen` (
+  `id_dsn` int(11) NOT NULL,
+  `nik_dsn` bigint(25) NOT NULL,
+  `prodi_dsn` varchar(128) NOT NULL,
+  `nama_dsn` varchar(128) NOT NULL,
+  `status_dsn` enum('0','1') NOT NULL DEFAULT '0' COMMENT '0 = tidak aktif; 1 = aktif',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `m_dosen`
+--
+
+INSERT INTO `m_dosen` (`id_dsn`, `nik_dsn`, `prodi_dsn`, `nama_dsn`, `status_dsn`, `created_at`, `created_by`) VALUES
+(1, 1234567890123, 'D3 Teknik Informatika', 'Ruslan', '0', '2022-01-31 11:19:39', 'fadly'),
+(2, 3210987654321, 'D3 Teknik Informatika', 'Indateng', '0', '2022-01-31 11:19:41', 'fadly'),
+(11, 10708035, 'D3 Teknik Informatika', 'Bayu Setiawan', '1', '2022-01-31 07:47:49', 'fadly'),
+(12, 10708036, 'D3 Teknik Informatika', 'Rizki Nugraha', '1', '2022-01-31 07:47:49', 'fadly'),
+(13, 10708037, 'D3 Teknik Informatika', 'Alifiyah yahya', '1', '2022-01-31 07:47:49', 'fadly'),
+(14, 10708038, 'D3 Teknik Informatika', 'Nurul Malika', '1', '2022-01-31 07:47:49', 'fadly'),
+(15, 10788027, 'D3 Teknik Informatika', 'Supratno', '1', '2022-01-31 07:47:49', 'fadly'),
+(16, 10788028, 'D3 Teknik Informatika', 'Reza Rahardia', '1', '2022-01-31 07:47:49', 'fadly'),
+(17, 10788029, 'D3 Teknik Informatika', 'Anggika Sari', '1', '2022-01-31 07:47:49', 'fadly'),
+(18, 10788030, 'D3 Teknik Informatika', 'Ismail Kadir', '1', '2022-01-31 07:47:49', 'fadly');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `m_lokasi`
+--
+
+CREATE TABLE `m_lokasi` (
+  `id_lks` int(11) NOT NULL,
+  `npm_mhs` int(11) NOT NULL,
+  `nama_perusahaan` varchar(255) NOT NULL,
+  `alamat_lks` varchar(255) NOT NULL,
+  `dsn_eksternal` varchar(255) NOT NULL,
+  `no_tlp_dsn_eksternal` varchar(25) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `m_lokasi`
+--
+
+INSERT INTO `m_lokasi` (`id_lks`, `npm_mhs`, `nama_perusahaan`, `alamat_lks`, `dsn_eksternal`, `no_tlp_dsn_eksternal`, `created_at`, `created_by`) VALUES
+(1, 1202010, 'PT Perkebunan Nusantara VII', 'Jl. Sindangsirna, No. 4, Bandung, 40153', 'Angga', '082334567891', '2022-02-14 17:43:24', ''),
+(3, 1202020, 'PT Infomedia Nusantara', 'Jl RS Fatmawati No 77 - 81 Jakarta Selatan', 'Mufti', '081234567890', '2022-02-14 17:44:06', ''),
+(5, 1202001, 'PT Perkebunan Nusantara VII', 'Jl. Sarimanah II No.150, Sarijadi, Sukasari , Kota Bandung Jawa Barat', 'Angga Saputra', '085340347955', '2022-02-14 17:44:20', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `m_mahasiswa`
+--
+
+CREATE TABLE `m_mahasiswa` (
+  `id_mhs` int(11) NOT NULL,
+  `npm_mhs` int(11) NOT NULL,
+  `nama_mhs` varchar(128) NOT NULL,
+  `prodi_mhs` varchar(128) NOT NULL,
+  `kelas_mhs` varchar(20) NOT NULL,
+  `status_mhs` enum('0','1') NOT NULL DEFAULT '0' COMMENT '0 = tidak aktif; 1 = aktif',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `m_mahasiswa`
+--
+
+INSERT INTO `m_mahasiswa` (`id_mhs`, `npm_mhs`, `nama_mhs`, `prodi_mhs`, `kelas_mhs`, `status_mhs`, `created_at`, `created_by`) VALUES
+(1, 1163009, 'Anadalo Mokosisi', 'D3 Teknik Informatika', '3A', '0', '2022-01-31 11:19:47', 'fadly'),
+(4, 1163086, 'Anadalo', 'D3 Teknik Informatika', '3A', '0', '2022-01-31 11:19:49', 'fadly'),
+(5, 1202001, 'Agnes wardani', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(6, 1202011, 'Ananda Myesha', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(7, 1202012, 'Aulia Rizka', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(8, 1202002, 'Ayu Salsabilah', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(9, 1202003, 'Bayu Arwana', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(10, 1202004, 'Cahyo waluyo', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(11, 1202013, 'Cinta salsabillah', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(12, 1202005, 'Dika Prasetya', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(13, 1202014, 'Dita Aisya', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(14, 1202006, 'Fadillah azahra', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(15, 1202015, 'Furqan S', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(16, 1202007, 'Gunawan', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(17, 1202008, 'Indah Triapriliani', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(18, 1202016, 'Nanda Aulika', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(19, 1202017, 'Putri Ayu', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(20, 1202018, 'Revika Audia', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(21, 1202009, 'Reza Nugraha', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(22, 1202019, 'Riri Eka Puspita', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(23, 1202020, 'Tri Ananda', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly'),
+(24, 1202010, 'Yanti ayu ', 'D3 Teknik Infromatika', '3A', '1', '2022-01-31 07:44:59', 'fadly');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `m_nilai`
+--
+
+CREATE TABLE `m_nilai` (
+  `id_nilai` int(11) NOT NULL,
+  `nik_dsn` bigint(25) NOT NULL,
+  `npm_mhs` int(11) NOT NULL,
+  `nilai_mhs` int(11) DEFAULT NULL,
+  `bimbingan_ke` int(11) DEFAULT NULL,
+  `topik` varchar(255) DEFAULT NULL,
+  `file_mhs` varchar(255) DEFAULT NULL,
+  `file_revisi` varchar(255) DEFAULT NULL,
+  `catatan` text DEFAULT NULL,
+  `proyek_ke` int(11) DEFAULT NULL,
+  `tahun_ajaran` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` varchar(25) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `m_nilai`
+--
+
+INSERT INTO `m_nilai` (`id_nilai`, `nik_dsn`, `npm_mhs`, `nilai_mhs`, `bimbingan_ke`, `topik`, `file_mhs`, `file_revisi`, `catatan`, `proyek_ke`, `tahun_ajaran`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 10788030, 1202010, 70, 1, 'Latar Belakang', 'laporan_10788030_1202010_20220910_222020.pdf', 'laporan_revisi_10788030_1202010_20220214_231318.pdf', 'Latar belakang tidak sesuai judul yang di cantiumkan tolong perhatikan baik-baik dgn seksama', 2, '2021/2022', '2022-02-14 23:13:18', 'Yanti Ayu ', '2022-02-14 23:13:18', 'Ismail Kadir');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `prodi` varchar(128) NOT NULL,
+  `npm` int(11) DEFAULT NULL,
+  `nik` bigint(20) DEFAULT NULL,
+  `image` varchar(128) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `is_active` int(1) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `email`, `prodi`, `npm`, `nik`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
+(2, 'Admin', 'eprakerin2021@gmail.com', 'D3 Teknik Informatika', 0, 0, 'default.jpg', '$2y$10$fzCVGbHbuYSreFnhvY4fiOeJQzeRhMjEq/u1lTWncQOtO4ytzzbVC', 1, 1, 1641735264),
+(5, 'Ismail Kadir', 'didinirfandy16@gmail.com', 'D3 Teknik Informatika', 0, 10788030, 'default.jpg', '$2y$10$mu4qmmc52wh/E4MMxiqhPuaX1l7TnDXWUQZTjc9nltFS0XUVtinWC', 2, 1, 1641741738),
+(9, 'Koordinator', 'fadlyferdiansyah14@gmail.com', 'D3 Teknik Informatika', 0, 0, 'default.jpg', '$2y$10$4C8bKzTw/KTfrCgTCWt7/eMcXT0L3Dv8xHU.9aj33okueWZ.Mnhy.', 4, 1, 1642402263),
+(10, 'Yanti Ayu ', 'fadlyferdiansyah18@gmail.com', 'D3 Teknik Informatika', 1202010, 0, 'default.jpg', '$2y$10$ZlAYcKDVdGL0fWmsej7HzutJwyAFSbq1HXlGICHa16TvxATh8UDfy', 3, 1, 1642864757);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_access_menu`
+--
+
+CREATE TABLE `user_access_menu` (
+  `id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user_access_menu`
+--
+
+INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 2),
+(4, 1, 3),
+(6, 3, 3),
+(10, 1, 4),
+(11, 4, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_menu`
+--
+
+CREATE TABLE `user_menu` (
+  `id` int(11) NOT NULL,
+  `menu` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user_menu`
+--
+
+INSERT INTO `user_menu` (`id`, `menu`) VALUES
+(1, 'Administrator'),
+(2, 'Dosen'),
+(3, 'Mahasiswa'),
+(4, 'Koordinator');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `id` int(11) NOT NULL,
+  `role` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `role`) VALUES
+(1, 'Administrator'),
+(2, 'Dosen'),
+(3, 'Mahasiswa'),
+(4, 'Koordinator');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_sub_menu`
+--
+
+CREATE TABLE `user_sub_menu` (
+  `id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  `icon` varchar(128) NOT NULL,
+  `is_active` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user_sub_menu`
+--
+
+INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active`) VALUES
+(1, 1, 'Dashboard', 'admin', 'fas fa-fw fa-tachometer-alt', 1),
+(2, 2, 'My Profile', 'dosen', 'fas fa-fw fa-user', 1),
+(3, 2, 'Edit Profile', 'dosen/edit', 'fas fa-fw fa-user-edit', 1),
+(4, 1, 'Menu Management', 'menu', 'fas fa-fw fa-folder', 1),
+(5, 1, 'Sub Menu Management', 'menu/submenu', 'fas fa-fw fa-tasks', 1),
+(6, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-tie', 1),
+(7, 2, 'Change Password', 'dosen/changepassword', 'fas fa-fw fa-key', 1),
+(8, 3, 'My Profile', 'mahasiswa', 'fas fa-fw fa-user', 1),
+(9, 3, 'Edit Profile', 'mahasiswa/edit', 'fas fa-fw fa-user-edit', 1),
+(10, 3, 'Change Password', 'mahasiswa/changepassword', 'fas fa-fw fa-key', 1),
+(11, 3, 'Upload Laporan', 'mahasiswa/uploadlaporan', 'fas fa-fw fa-file-upload ', 1),
+(12, 3, 'Data Dosen', 'mahasiswa/datadosen', 'fas fa-fw fa-chalkboard-teacher', 0),
+(13, 2, 'Laporan Mahasiswa', 'dosen/laporanm', 'fas fa-fw fa-file-download', 1),
+(14, 2, 'Data Mahasiswa', 'dosen/viewm', 'fas fa-fw fa-user-graduate', 1),
+(15, 4, 'My Profile', 'koordinator', 'fas fa-fw fa-user', 1),
+(16, 4, 'Edit Profile', 'koordinator/edit', 'fas fa-fw fa-user-edit', 1),
+(17, 4, 'Change Password ', 'koordinator/changepassword', 'fas fa-fw fa-key', 1),
+(18, 4, 'Lokasi PKL', 'koordinator/lokasiPKL', 'fas fa-fw fa-map-marked-alt', 1),
+(19, 4, 'Dosen Pembimbing', 'koordinator/dftrDsnPembimbing', 'fas fa-fw fa-street-view', 1),
+(21, 3, 'Jurnal Laporan', 'mahasiswa/jurnalLaporan', 'fas fa-fw fa-book', 1),
+(22, 2, 'Pengajuan SIdang', 'dosen/pengajuanSidang', 'fas fa-gavel', 1),
+(23, 4, 'Pengajuan SIdang', 'dosen/pengajuanSidang', 'fas fa-gavel', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_token`
+--
+
+CREATE TABLE `user_token` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `m_bimbingan`
+--
+ALTER TABLE `m_bimbingan`
+  ADD PRIMARY KEY (`id_bim`);
+
+--
+-- Indeks untuk tabel `m_dosen`
+--
+ALTER TABLE `m_dosen`
+  ADD PRIMARY KEY (`id_dsn`);
+
+--
+-- Indeks untuk tabel `m_lokasi`
+--
+ALTER TABLE `m_lokasi`
+  ADD PRIMARY KEY (`id_lks`);
+
+--
+-- Indeks untuk tabel `m_mahasiswa`
+--
+ALTER TABLE `m_mahasiswa`
+  ADD PRIMARY KEY (`id_mhs`);
+
+--
+-- Indeks untuk tabel `m_nilai`
+--
+ALTER TABLE `m_nilai`
+  ADD PRIMARY KEY (`id_nilai`);
+
+--
+-- Indeks untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `user_access_menu`
+--
+ALTER TABLE `user_access_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `user_menu`
+--
+ALTER TABLE `user_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `user_sub_menu`
+--
+ALTER TABLE `user_sub_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `user_token`
+--
+ALTER TABLE `user_token`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `m_bimbingan`
+--
+ALTER TABLE `m_bimbingan`
+  MODIFY `id_bim` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `m_dosen`
+--
+ALTER TABLE `m_dosen`
+  MODIFY `id_dsn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT untuk tabel `m_lokasi`
+--
+ALTER TABLE `m_lokasi`
+  MODIFY `id_lks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `m_mahasiswa`
+--
+ALTER TABLE `m_mahasiswa`
+  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT untuk tabel `m_nilai`
+--
+ALTER TABLE `m_nilai`
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_access_menu`
+--
+ALTER TABLE `user_access_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_menu`
+--
+ALTER TABLE `user_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_sub_menu`
+--
+ALTER TABLE `user_sub_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_token`
+--
+ALTER TABLE `user_token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
