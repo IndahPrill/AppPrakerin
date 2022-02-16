@@ -19,7 +19,7 @@
                                 <th>File Laporan</th>
                                 <th>Komentar</th>
                                 <th>Nilai</th>
-                                <th>Action</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,8 +36,8 @@
                                         <?php
                                         if ($lm['file_mhs']) { ?>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa-solid fa-gear"></i>&nbsp;Action
+                                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" style="font-size: 65%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa-solid fa-gear"></i>&nbsp;Opsi
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="<?= base_url('mahasiswa/downloadLaporan/') . $lm['file_mhs']; ?>"><i class="fas fa-file-pdf"></i>&nbsp;Download</a>

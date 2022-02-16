@@ -20,6 +20,8 @@ class Dosen extends CI_Controller
         $data['title'] = 'My Profile';
         $email = $this->session->userdata('email');
         $data['user'] = $this->Menu_model->GetUser($email);
+        $nik = $this->session->userdata('nik');
+        $data['mhsBim'] = $this->Dosen_model->GetMhsBimbingan($nik);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -323,4 +325,75 @@ class Dosen extends CI_Controller
         }
     }
     // End Proses Data Mahasiswa
+
+    public function pengajuanSidang()
+    {
+        $data['title'] = 'Pengajuan Sidang';
+        $email = $this->session->userdata('email');
+        $data['user'] = $this->Menu_model->GetUser($email);
+        $nik_dsn = $this->session->userdata('nik');
+        $role_id = $this->session->userdata('role_id');
+        $data['subSidang'] = $this->Dosen_model->getSubSidang($nik_dsn, $role_id);
+        $data['fileLprn'] = $this->Dosen_model->getFileLprnKoor();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('dosen/pengajuanSidang', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function approveDsn()
+    {
+        $stts_bim = $this->input->post('status_bimbingan');
+        $catatan  = $this->input->post('catatan');
+        $id_dim   = $this->input->post('id_dim');
+
+        $data = array(
+            'status_bimbingan' => $stts_bim,
+            'catatan'          => $catatan
+        );
+
+        $hasil = $this->Dosen_model->approveUpd($data, $id_dim);
+
+        if ($hasil) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil</div>');
+            redirect('dosen/pengajuanSidang');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal</div>');
+            redirect('dosen/pengajuanSidang');
+        }
+    }
+
+    public function approveKoor()
+    {
+        $stts_bim = $this->input->post('status_koor');
+        $catatan  = $this->input->post('catatan_koor');
+        $id_dim   = $this->input->post('id_dim');
+
+        $data = array(
+            'status_koor'   => $stts_bim,
+            'catatan_koor'  => $catatan
+        );
+
+        $hasil = $this->Dosen_model->approveUpd($data, $id_dim);
+
+        if ($hasil) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil</div>');
+            redirect('dosen/pengajuanSidang');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal</div>');
+            redirect('dosen/pengajuanSidang');
+        }
+    }
+
+
 }

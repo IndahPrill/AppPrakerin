@@ -31,10 +31,14 @@ class Menu extends CI_Controller
             $hasil = $this->db->insert('user_menu', ['menu' => $this->input->post('menu')]);
 
             if ($hasil) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Menambahkan Menu</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Berhasil Menambahkan Menu</div>');
                 redirect('menu');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Gagal Menambahkan Menu</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Menambahkan Menu</div>');
                 redirect('menu');
             }
         }

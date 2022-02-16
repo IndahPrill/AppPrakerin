@@ -24,15 +24,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">Apakah anda yakin keluar?</div>
             <div class="modal-footer">
-                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Tidak</button>
-                <a class="btn btn-sm btn-primary" href="<?= base_url('auth/logout'); ?>">Ya</a>
+                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Tidak</button>
+                <a class="btn btn-sm btn-primary" href="<?= base_url('auth/logout'); ?>"><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;Ya</a>
             </div>
         </div>
     </div>

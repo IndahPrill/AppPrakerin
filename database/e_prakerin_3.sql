@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Feb 2022 pada 12.27
+-- Waktu pembuatan: 09 Feb 2022 pada 23.22
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.3.25
 
@@ -31,10 +31,8 @@ CREATE TABLE `m_bimbingan` (
   `id_bim` int(11) NOT NULL,
   `nik_dsn` bigint(25) NOT NULL,
   `npm_mhs` int(11) NOT NULL,
-  `status_bimbingan` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '0 = Proses Bimbingan\r\n1 = Siap Sidang\r\n2 = Belum Siap Sidang\r\n3 = Penangguhan',
-  `status_koor` enum('0','1','2','3') NOT NULL COMMENT '0 = Proses Bimbingan\r\n1 = Siap Sidang\r\n2 = Belum Siap Sidang\r\n3 = Penangguhan',
+  `status_bimbingan` enum('0','1','2') NOT NULL DEFAULT '0' COMMENT '0 = Proses Bimbingan\r\n1 = Siap Sidang\r\n2 = Belum Siap Sidang',
   `catatan` varchar(255) NOT NULL,
-  `catatan_koor` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_by` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -43,13 +41,13 @@ CREATE TABLE `m_bimbingan` (
 -- Dumping data untuk tabel `m_bimbingan`
 --
 
-INSERT INTO `m_bimbingan` (`id_bim`, `nik_dsn`, `npm_mhs`, `status_bimbingan`, `status_koor`, `catatan`, `catatan_koor`, `created_at`, `created_by`) VALUES
-(1, 1234567890123, 1163009, '0', '0', '', '', '2022-01-31 05:49:10', 'fadly'),
-(2, 3210987654321, 1163086, '0', '0', '', '', '2022-01-31 05:51:54', 'fadly'),
-(3, 10788030, 1202010, '1', '1', 'Ok acc', 'siap di acc nih', '2022-02-16 11:25:04', 'fadly'),
-(4, 10788030, 1202020, '0', '0', '', '', '2022-02-07 21:36:43', 'fadly'),
-(5, 10788029, 1202019, '0', '0', '', '', '2022-02-07 21:36:44', 'fadly'),
-(6, 10788029, 1202009, '0', '0', '', '', '2022-02-07 21:36:46', 'fadly');
+INSERT INTO `m_bimbingan` (`id_bim`, `nik_dsn`, `npm_mhs`, `status_bimbingan`, `catatan`, `created_at`, `created_by`) VALUES
+(1, 1234567890123, 1163009, '0', '', '2022-01-31 05:49:10', 'fadly'),
+(2, 3210987654321, 1163086, '0', '', '2022-01-31 05:51:54', 'fadly'),
+(3, 10788030, 1202010, '0', '', '2022-02-07 21:36:43', 'fadly'),
+(4, 10788030, 1202020, '0', '', '2022-02-07 21:36:43', 'fadly'),
+(5, 10788029, 1202019, '0', '', '2022-02-07 21:36:44', 'fadly'),
+(6, 10788029, 1202009, '0', '', '2022-02-07 21:36:46', 'fadly');
 
 -- --------------------------------------------------------
 
@@ -105,9 +103,9 @@ CREATE TABLE `m_lokasi` (
 --
 
 INSERT INTO `m_lokasi` (`id_lks`, `npm_mhs`, `nama_perusahaan`, `alamat_lks`, `dsn_eksternal`, `no_tlp_dsn_eksternal`, `created_at`, `created_by`) VALUES
-(1, 1202010, 'PT Perkebunan Nusantara VII', 'Jl. Sindangsirna, No. 4, Bandung, 40153', 'Angga', '082334567891', '2022-02-14 17:43:24', ''),
-(3, 1202020, 'PT Infomedia Nusantara', 'Jl RS Fatmawati No 77 - 81 Jakarta Selatan', 'Mufti', '081234567890', '2022-02-14 17:44:06', ''),
-(5, 1202001, 'PT Perkebunan Nusantara VII', 'Jl. Sarimanah II No.150, Sarijadi, Sukasari , Kota Bandung Jawa Barat', 'Angga Saputra', '085340347955', '2022-02-14 17:44:20', '');
+(1, 1163086, 'PT Perkebunan Nusantara VII', 'Jl. Sindangsirna, No. 4, Bandung, 40153', 'Angga', '082334567891', '2022-01-31 05:52:02', ''),
+(3, 1163009, 'PT Infomedia Nusantara', 'Jl RS Fatmawati No 77 - 81 Jakarta Selatan', 'Didin Irfandi', '081234567890', '2022-01-31 05:24:23', ''),
+(5, 1202001, 'PT Perkebunan Nusantara VII', 'Jl. Sarimanah II No.150, Sarijadi, Sukasari , Kota Bandung Jawa Barat', 'Angga Saputra', '0853-4034-7955', '2022-02-07 20:59:19', '');
 
 -- --------------------------------------------------------
 
@@ -164,7 +162,7 @@ CREATE TABLE `m_nilai` (
   `id_nilai` int(11) NOT NULL,
   `nik_dsn` bigint(25) NOT NULL,
   `npm_mhs` int(11) NOT NULL,
-  `nilai_mhs` int(11) DEFAULT NULL,
+  `nilai_mhs` int(11) NOT NULL,
   `bimbingan_ke` int(11) DEFAULT NULL,
   `topik` varchar(255) DEFAULT NULL,
   `file_mhs` varchar(255) DEFAULT NULL,
@@ -183,7 +181,7 @@ CREATE TABLE `m_nilai` (
 --
 
 INSERT INTO `m_nilai` (`id_nilai`, `nik_dsn`, `npm_mhs`, `nilai_mhs`, `bimbingan_ke`, `topik`, `file_mhs`, `file_revisi`, `catatan`, `proyek_ke`, `tahun_ajaran`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 10788030, 1202010, 70, 1, 'Latar Belakang', 'laporan_10788030_1202010_20220910_222020.pdf', 'laporan_revisi_10788030_1202010_20220214_231318.pdf', 'Latar belakang tidak sesuai judul yang di cantiumkan tolong perhatikan baik-baik dgn seksama', 2, '2021/2022', '2022-02-14 23:13:18', 'Yanti Ayu ', '2022-02-14 23:13:18', 'Ismail Kadir');
+(1, 10788030, 1202010, 0, 1, 'Latar Belakang', 'laporan_10788030_1202010_20220910_222020.pdf', NULL, NULL, 2, '2021/2022', '2022-02-10 04:18:40', 'Yanti Ayu ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -210,9 +208,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `prodi`, `npm`, `nik`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(2, 'Admin', 'eprakerin2021@gmail.com', 'D3 Teknik Informatika', 0, 0, 'default.jpg', '$2y$10$fzCVGbHbuYSreFnhvY4fiOeJQzeRhMjEq/u1lTWncQOtO4ytzzbVC', 1, 1, 1641735264),
-(5, 'Ismail Kadir', 'didinirfandy16@gmail.com', 'D3 Teknik Informatika', 0, 10788030, 'default.jpg', '$2y$10$mu4qmmc52wh/E4MMxiqhPuaX1l7TnDXWUQZTjc9nltFS0XUVtinWC', 2, 1, 1641741738),
-(9, 'Koordinator', 'fadlyferdiansyah14@gmail.com', 'D3 Teknik Informatika', 0, 0, 'default.jpg', '$2y$10$4C8bKzTw/KTfrCgTCWt7/eMcXT0L3Dv8xHU.9aj33okueWZ.Mnhy.', 4, 1, 1642402263),
+(2, 'fadly', 'eprakerin2021@gmail.com', '', 0, 0, 'default.jpg', '$2y$10$fzCVGbHbuYSreFnhvY4fiOeJQzeRhMjEq/u1lTWncQOtO4ytzzbVC', 1, 1, 1641735264),
+(5, 'Bayu', 'didinirfandy16@gmail.com', '', 0, 10708035, 'default.jpg', '$2y$10$mu4qmmc52wh/E4MMxiqhPuaX1l7TnDXWUQZTjc9nltFS0XUVtinWC', 2, 1, 1641741738),
+(9, 'koor', 'fadlyferdiansyah14@gmail.com', '', 0, 0, 'default.jpg', '$2y$10$4C8bKzTw/KTfrCgTCWt7/eMcXT0L3Dv8xHU.9aj33okueWZ.Mnhy.', 4, 1, 1642402263),
 (10, 'Yanti Ayu ', 'fadlyferdiansyah18@gmail.com', 'D3 Teknik Informatika', 1202010, 0, 'default.jpg', '$2y$10$ZlAYcKDVdGL0fWmsej7HzutJwyAFSbq1HXlGICHa16TvxATh8UDfy', 3, 1, 1642864757);
 
 -- --------------------------------------------------------
@@ -313,7 +311,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (9, 3, 'Edit Profile', 'mahasiswa/edit', 'fas fa-fw fa-user-edit', 1),
 (10, 3, 'Change Password', 'mahasiswa/changepassword', 'fas fa-fw fa-key', 1),
 (11, 3, 'Upload Laporan', 'mahasiswa/uploadlaporan', 'fas fa-fw fa-file-upload ', 1),
-(12, 3, 'Data Dosen', 'mahasiswa/datadosen', 'fas fa-fw fa-chalkboard-teacher', 0),
+(12, 3, 'Data Dosen', 'mahasiswa/datadosen', 'fas fa-fw fa-chalkboard-teacher', 1),
 (13, 2, 'Laporan Mahasiswa', 'dosen/laporanm', 'fas fa-fw fa-file-download', 1),
 (14, 2, 'Data Mahasiswa', 'dosen/viewm', 'fas fa-fw fa-user-graduate', 1),
 (15, 4, 'My Profile', 'koordinator', 'fas fa-fw fa-user', 1),
@@ -321,9 +319,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (17, 4, 'Change Password ', 'koordinator/changepassword', 'fas fa-fw fa-key', 1),
 (18, 4, 'Lokasi PKL', 'koordinator/lokasiPKL', 'fas fa-fw fa-map-marked-alt', 1),
 (19, 4, 'Dosen Pembimbing', 'koordinator/dftrDsnPembimbing', 'fas fa-fw fa-street-view', 1),
-(21, 3, 'Jurnal Laporan', 'mahasiswa/jurnalLaporan', 'fas fa-fw fa-book', 1),
-(22, 2, 'Pengajuan SIdang', 'dosen/pengajuanSidang', 'fas fa-gavel', 1),
-(23, 4, 'Pengajuan SIdang', 'dosen/pengajuanSidang', 'fas fa-gavel', 1);
+(21, 3, 'Jurnal Laporan', 'mahasiswa/jurnalLaporan', 'fas fa-fw fa-book', 1);
 
 -- --------------------------------------------------------
 
@@ -470,7 +466,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_token`
