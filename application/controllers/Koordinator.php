@@ -77,7 +77,7 @@ class Koordinator extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
             <span class="icon-sc-cl" aria-hidden="true">x</span></button>Profil Berhasil DiUbah</div>');
-            redirect('koordinator');
+            redirect('koordinator/edit');
         }
     }
 
