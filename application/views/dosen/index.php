@@ -3,12 +3,6 @@
 
         <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-        <div class="row">
-            <div class="col-lg-6">
-            <?= $this->session->flashdata('message'); ?>
-            </div>
-        </div>
-
 
         <div class="row">
             <div class="col-lg-5">
@@ -65,9 +59,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
+                                    <?php
                                     $no = 1;
-                                    foreach ($mhsBim as $mb) {?>
+                                    foreach ($mhsBim as $mb) { ?>
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= $mb['npm_mhs']; ?></td>
@@ -90,7 +84,5 @@
     </div>
     <!-- /.container-fluid -->
 
-</div>
-<!-- End of Main Content -->
-
-            
+    </div>
+    <!-- End of Main Content -->

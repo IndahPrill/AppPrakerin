@@ -89,12 +89,12 @@ class Dosen extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                 <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
                 <span class="icon-sc-cl" aria-hidden="true">x</span></button>Profil Berhasil Di Ubah</div>');
-                redirect('dosen');
+                redirect('dosen/edit');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
                 <span class="icon-sc-cl" aria-hidden="true">x</span></button>Profil Gagal Di Ubah</div>');
-                redirect('dosen');
+                redirect('dosen/edit');
             }
         }
     }
@@ -162,7 +162,7 @@ class Dosen extends CI_Controller
         $nik_dsn = $this->session->userdata('nik');
         $role_id = $this->session->userdata('role_id');
         $data['lprnMhs'] = $this->Mahasiswa_model->getLaporanMhs($nik_dsn);
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -212,7 +212,7 @@ class Dosen extends CI_Controller
                     <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
                     <span class="icon-sc-cl" aria-hidden="true">x</span></button>Gagal Di Upload</div>');
                     redirect('dosen/laporanm');
-                }    
+                }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
@@ -394,6 +394,4 @@ class Dosen extends CI_Controller
             redirect('dosen/pengajuanSidang');
         }
     }
-
-
 }
