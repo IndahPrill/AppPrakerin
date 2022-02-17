@@ -34,7 +34,7 @@
                                         if ($jl['file_mhs']) { ?>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Action
+                                                    <i class="fa-solid fa-gear"></i>&nbsp;Opsi
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="<?= base_url('mahasiswa/downloadLaporan/') . $jl['file_mhs']; ?>"><i class="fas fa-file-pdf"></i>&nbsp;Download</a>
@@ -50,7 +50,7 @@
                                         if ($jl['file_revisi']) { ?>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Action
+                                                    <i class="fa-solid fa-gear"></i>&nbsp;Opsi
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="<?= base_url('mahasiswa/downloadLaporanRevisi/') . $jl['file_revisi']; ?>"><i class="fas fa-file-pdf"></i>&nbsp;Download</a>
